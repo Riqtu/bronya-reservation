@@ -7,7 +7,7 @@ import {
   Text,
   BackFrames,
   MainSection,
-  All
+  All,
 } from './MainPage.styles'
 
 import { Button } from '../../components'

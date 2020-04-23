@@ -21,9 +21,19 @@ const PlaceSchema = new Schema({
       y: Number,
       reserved: Boolean
     }
-  ]
+  ],
+  map: {
+    type: String,
+    trim: true
+  }
 })
 
-PlaceSchema.statics.createFields = ['name', 'description', 'logo', 'table']
+PlaceSchema.statics.createFields = [
+  'name',
+  'description',
+  'logo',
+  'table',
+  'map'
+]
 
 export default mongoose.model('place', PlaceSchema)

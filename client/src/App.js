@@ -1,10 +1,11 @@
 import React from 'react'
 
 import { useRoutes } from 'hookrouter'
-import { MainPage, Reservation } from './pages'
+import { MainPage, Reservation, Constructor } from './pages'
 const Routes = {
   '/': () => <MainPage />,
-  '/reservation': () => <Reservation />
+  '/reservation/:id': (props) => <Reservation {...props} />,
+  '/constructor': () => <Constructor />,
 }
 function App() {
   const routeResult = useRoutes(Routes)

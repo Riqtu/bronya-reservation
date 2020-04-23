@@ -58,18 +58,14 @@ export default {
   },
   async getPlaceByID(ctx) {
     const {
-      params: { id: _id },
-      request: { body }
+      params: { id: _id }
     } = ctx
     const place = await Place.findOne({ _id })
 
-    console.log(body)
     ctx.body = { data: pick(place, Place.createFields) }
   },
   async getPlace(ctx) {
     const place = await Place.find({})
-
-    console.log(place)
     ctx.body = { data: place }
   }
 }

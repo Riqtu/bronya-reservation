@@ -19,6 +19,25 @@ const start = css`
     background-color: ${darkGreen};
   }
 `
+
+const upload = css`
+  position: relative;
+  top: 30px;
+  /* text-align: center; */
+  padding: 10px;
+  margin-left: 80px;
+  border-radius: 5px;
+  /* margin: 25px; */
+  background-color: ${green};
+  border: none;
+  transition: 0.3s;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  &:hover {
+    background-color: ${darkGreen};
+  }
+`
 const defaultState = css``
 
 const stateForAll = css`
@@ -47,6 +66,8 @@ export const ButtonWrapper = styled.button(props => {
   switch (props.state) {
     case 'start':
       return start
+    case 'upload':
+      return upload
     default:
       return defaultState
   }

@@ -5,7 +5,7 @@ import { Place } from './models'
 
 const router = new Router({ prefix: '/places' })
 
-router.post('/', checkUser(), placesController.create)
+router.post('/', placesController.create)
 router.put('/:id', checkUser(), placesController.update)
 router.delete('/:id', checkUser(), placesController.delete)
 router.get('/', placesController.getPlace)

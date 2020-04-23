@@ -1,17 +1,34 @@
 import React from 'react'
-import { FrameWrapper, Table, Floor, Wall } from './Frame.styles'
+import { FrameWrapper, Table, Floor } from './Frame.styles'
 
 import table from './../../assets/table.svg'
 
-const Frame = () => (
-  <FrameWrapper>
-    <Floor>
-      <Wall>Бар</Wall>
-    </Floor>
-    <Table src={table} y="41%"></Table>
-    <Table src={table} y="48%" x="10%"></Table>
-    <Table src={table} y="9%" x="46%"></Table>
-  </FrameWrapper>
-)
+const Frame = (props) => {
+  const tablePlace =
+    !props.isFetching &&
+    props.places &&
+    props.places.table &&
+    props.places.table.map((el, index) => {
+      return (
+        <Table
+          src={table}
+          y={props.places.table[index].y + '%'}
+          x={props.places.table[index].x + '%'}
+        ></Table>
+      )
+    })
+  return props.places ? (
+    <FrameWrapper>
+      <Floor
+        wall={
+          'http://localhost:4002/' + (!props.isFetching && props.places.map)
+        }
+      ></Floor>
+      {tablePlace}
+    </FrameWrapper>
+  ) : (
+    <FrameWrapper>Loading...</FrameWrapper>
+  )
+}
 
 export default Frame

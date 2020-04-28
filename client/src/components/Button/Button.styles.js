@@ -21,13 +21,10 @@ const start = css`
 `
 
 const upload = css`
+  margin-bottom: 20px;
   position: relative;
-  top: 30px;
-  /* text-align: center; */
   padding: 10px;
-  margin-left: 80px;
   border-radius: 5px;
-  /* margin: 25px; */
   background-color: ${green};
   border: none;
   transition: 0.3s;
@@ -38,6 +35,27 @@ const upload = css`
     background-color: ${darkGreen};
   }
 `
+
+const submit = css`
+  margin-top: 10px;
+  position: relative;
+  text-align: center;
+  height: 50px;
+  width: 60%;
+  margin-left: 20%;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: ${green};
+  border: none;
+  transition: 0.3s;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  &:hover {
+    background-color: ${darkGreen};
+  }
+`
+
 const defaultState = css``
 
 const stateForAll = css`
@@ -62,12 +80,14 @@ const stateForAll = css`
   }
 `
 
-export const ButtonWrapper = styled.button(props => {
+export const ButtonWrapper = styled.button((props) => {
   switch (props.state) {
     case 'start':
       return start
     case 'upload':
       return upload
+    case 'submit':
+      return submit
     default:
       return defaultState
   }

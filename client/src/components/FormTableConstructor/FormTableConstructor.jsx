@@ -6,6 +6,7 @@ import {
   Input,
   FileInput,
   LargeInput,
+  Upload,
 } from './FormTableConstructor.styles'
 import Button from '../Button'
 const FormTableConstructor = (props) => {
@@ -23,7 +24,10 @@ const FormTableConstructor = (props) => {
       case 87: //w
         props.setY(props.y - 1)
         break
-      case 16: //shift
+      // case 16: //shift
+      //   pushTable()
+      //   break
+      case 187: //+
         pushTable()
         break
       default:
@@ -71,30 +75,28 @@ const FormTableConstructor = (props) => {
       raw: e.target.files[0],
     })
   }
+  const handleChangeLogo = (e) => {
+    props.setLogo({
+      preview: URL.createObjectURL(e.target.files[0]),
+      raw: e.target.files[0],
+    })
+  }
 
   const handleUpload = async (e) => {
     e.preventDefault()
+    props.setData((props.data.name = props.name))
+    props.setData((props.data.description = props.description))
+
     const formData = new FormData()
+    formData.append('body', JSON.stringify(props.data))
     formData.append('image', props.image.raw)
-    const res = await fetch('http://192.168.1.124:4002/api/upload', {
-      method: 'POST',
-      body: formData,
-    })
-    res
-      .json()
-      .then((res) => {
-        props.setFile(res)
-        props.setData(
-          Object.assign({ map: res.path }, { name: props.name }, props.data)
-        )
-        console.log(res)
-      })
-      .catch((err) => console.log(err))
+    formData.append('logo', props.logo.raw)
+
+    console.log(props.data)
 
     const uploadData = await fetch('http://192.168.1.124:4002/api/places', {
       method: 'POST',
-      body: JSON.stringify(props.data),
-      headers: { 'Content-Type': 'application/json' },
+      body: formData,
     })
 
     uploadData
@@ -104,62 +106,66 @@ const FormTableConstructor = (props) => {
       })
       .catch((err) => console.log(err))
   }
-  const tables = props.data.table.map((el, index) => {
-    return (
-      <div key={index}>
-        <PrevInputs>
-          <label>
-            id
-            <Input
-              type="text"
-              value={props.data.table[index].id}
-              onChange={(e) =>
-                updateTableID(
-                  e,
-                  index,
-                  props.data.table[index].x,
-                  props.data.table[index].y
-                )
-              }
-            />
-          </label>
-          <label>
-            x
-            <Input
-              type="text"
-              value={props.data.table[index].x}
-              onChange={(e) =>
-                updateTableX(
-                  e,
-                  index,
-                  props.data.table[index].id,
-                  props.data.table[index].y
-                )
-              }
-            />
-          </label>
-          <label>
-            y
-            <Input
-              type="text"
-              value={props.data.table[index].y}
-              onChange={(e) =>
-                updateTableY(
-                  e,
-                  index,
-                  props.data.table[index].id,
-                  props.data.table[index].x
-                )
-              }
-            />
-          </label>
-          <button type="button" onClick={() => deleteTable(index)}>
-            del
-          </button>
-        </PrevInputs>
-      </div>
-    )
-  })
+
+  const tables =
+    props.data &&
+    props.data.table &&
+    props.data.table.map((el, index) => {
+      return (
+        <div key={index}>
+          <PrevInputs>
+            <label>
+              id
+              <Input
+                type="text"
+                value={props.data.table[index].id}
+                onChange={(e) =>
+                  updateTableID(
+                    e,
+                    index,
+                    props.data.table[index].x,
+                    props.data.table[index].y
+                  )
+                }
+              />
+            </label>
+            <label>
+              x
+              <Input
+                type="text"
+                value={props.data.table[index].x}
+                onChange={(e) =>
+                  updateTableX(
+                    e,
+                    index,
+                    props.data.table[index].id,
+                    props.data.table[index].y
+                  )
+                }
+              />
+            </label>
+            <label>
+              y
+              <Input
+                type="text"
+                value={props.data.table[index].y}
+                onChange={(e) =>
+                  updateTableY(
+                    e,
+                    index,
+                    props.data.table[index].id,
+                    props.data.table[index].x
+                  )
+                }
+              />
+            </label>
+            <button type="button" onClick={() => deleteTable(index)}>
+              del
+            </button>
+          </PrevInputs>
+        </div>
+      )
+    })
   return (
     <FormConstructorWrapper>
       <ThisInputs>
@@ -198,6 +204,16 @@ const FormTableConstructor = (props) => {
           />
         </label>
       </LargeInput>
+      <LargeInput text>
+        <label>
+          Описание
+          <input
+            type="text"
+            value={props.description}
+            onChange={(e) => props.setDescription(e.target.value)}
+          />
+        </label>
+      </LargeInput>
       <FileInput>
         <input
           type="file"
@@ -206,8 +222,17 @@ const FormTableConstructor = (props) => {
           onChange={(e) => handleChange(e)}
         />
         <label htmlFor="file">Загрузить карту</label>
-        <Button state="upload" onClick={handleUpload} text="Отправить" />
+        <input
+          type="file"
+          name="logo"
+          id="logo"
+          onChange={(e) => handleChangeLogo(e)}
+        />
+        <label htmlFor="logo">Загрузить лого</label>
       </FileInput>
+      <Upload>
+        <Button state="upload" onClick={handleUpload} text="Отправить" />
+      </Upload>
       {tables}
     </FormConstructorWrapper>
   )

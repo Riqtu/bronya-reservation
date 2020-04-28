@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { FrameConstructor, FormTableConstructor } from '../../components'
-import { ConstructorWrapper } from './Constructor.styles'
+import { ConstructorWrapper, PlaceLogo, Logo } from './Constructor.styles'
+import bronyaLogo from './../../assets/logo.svg'
 
 const Constructor = () => {
   const [id, setId] = useState(0)
@@ -10,9 +11,9 @@ const Constructor = () => {
   const [description, setDescription] = useState('')
   const [file, setFile] = useState({})
   const [image, setImage] = useState({ preview: '', raw: '' })
+  const [logo, setLogo] = useState({ preview: '', raw: '' })
 
   const [data, setData] = useState({
-    name: name,
     description: 'TestDescription',
     table: [],
   })
@@ -25,7 +26,8 @@ const Constructor = () => {
     <ConstructorWrapper>
       {JSON.stringify(data)}
       {JSON.stringify(file.path)}
-
+      <Logo src={bronyaLogo}></Logo>
+      <PlaceLogo logo={logo.preview}></PlaceLogo>
       <FrameConstructor
         table={table}
         places={data}
@@ -44,6 +46,8 @@ const Constructor = () => {
         setId={setId}
         setImage={setImage}
         image={image}
+        setLogo={setLogo}
+        logo={logo}
         setFile={setFile}
         file={file}
         name={name}

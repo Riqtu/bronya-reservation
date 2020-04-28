@@ -7,16 +7,19 @@ import {
 
 import table from './../../assets/table.svg'
 const FrameConstructor = (props) => {
-  const tablePlace = props.places.table.map((el, index) => {
-    return (
-      <Table
-        key={index}
-        src={table}
-        y={props.places.table[index].y + '%'}
-        x={props.places.table[index].x + '%'}
-      ></Table>
-    )
-  })
+  const tablePlace =
+    props.places &&
+    props.places.table &&
+    props.places.table.map((el, index) => {
+      return (
+        <Table
+          key={index}
+          src={table}
+          y={props.places.table[index].y + '%'}
+          x={props.places.table[index].x + '%'}
+        ></Table>
+      )
+    })
   return (
     <FrameConstructorWrapper>
       <Floor wall={props.image}></Floor>

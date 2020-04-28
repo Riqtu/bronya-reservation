@@ -25,8 +25,8 @@ export const LargeInput = styled.div`
   margin-top: 10px;
   input {
     margin: 10px 20px;
-    width: 100px;
-    height: 25px;
+    width: ${(props) => (props.text ? '220px' : '100px')};
+    height: ${(props) => (props.text ? '60px' : '25px')};
     padding-left: -4px;
     text-align: center;
     border-radius: 5px;
@@ -53,7 +53,7 @@ export const PrevInputs = styled.div`
 `
 export const FileInput = styled.div`
   width: 100%;
-  height: 100px;
+  height: 90px;
   text-align: center;
   padding-bottom: 0;
   input {
@@ -62,6 +62,7 @@ export const FileInput = styled.div`
     height: 0;
   }
   label {
+    margin: 20px;
     position: relative;
     top: 30px;
     text-align: center;
@@ -83,4 +84,9 @@ export const FileInput = styled.div`
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     }
   }
+`
+
+export const Upload = styled.div`
+  width: 100%;
+  text-align: center;
 `

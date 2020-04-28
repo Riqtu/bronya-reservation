@@ -4,29 +4,28 @@ import { PlaceService } from './../services'
 
 export default {
   async create(ctx) {
-    // console.log(Place.createFields)
+    const fileNameMap = ctx.request.files.image.path.split('/')
+    const fileNameLogo = ctx.request.files.logo.path.split('/')
 
+    const newBody = JSON.parse(ctx.request.body.body)
+    newBody.map = fileNameMap[2]
+    newBody.logo = fileNameLogo[2]
     const placeData = {
-      ...pick(ctx.request.body, Place.createFields)
+      ...pick(newBody, Place.createFields),
     }
-
-    // const { _id } = await Place.create(
-    //   pick(ctx.request.body, Place.createFields)
-    // )
-
     try {
       const { _id } = await PlaceService.createPlace(placeData)
       const place = await Place.findOne({ _id })
       ctx.body = { data: place }
     } catch (e) {
+      console.log(e)
       ctx.throw(400, e)
     }
   },
-
   async update(ctx) {
     const {
       params: { id: _id },
-      request: { body }
+      request: { body },
     } = ctx
 
     const place = await Place.findOne({ _id })
@@ -43,7 +42,7 @@ export default {
   },
   async delete(ctx) {
     const {
-      params: { id: _id }
+      params: { id: _id },
     } = ctx
 
     const place = await Place.findOne({ _id })
@@ -58,7 +57,7 @@ export default {
   },
   async getPlaceByID(ctx) {
     const {
-      params: { id: _id }
+      params: { id: _id },
     } = ctx
     const place = await Place.findOne({ _id })
 
@@ -67,5 +66,30 @@ export default {
   async getPlace(ctx) {
     const place = await Place.find({})
     ctx.body = { data: place }
-  }
+  },
+  async addGuest(ctx) {
+    const {
+      params: { id: _id, tid, name, phone, date },
+      request: { body },
+    } = ctx
+
+    const place = await Place.findOne({ _id })
+
+    if (!place) {
+      ctx.throw(404, 'Missing place')
+    }
+    place.table.map((el, index) => {
+      const tableId = place.table[index]._id
+      if (tableId == tid) {
+        place.table[index].guest.push({ name: name, phone: phone, date: date })
+        console.log('ok!')
+      }
+    })
+
+    const newData = pick(body, Place.createFields)
+
+    const updatedPlace = await PlaceService.updatePlace(newData, place)
+
+    ctx.body = { data: updatedPlace }
+  },
 }

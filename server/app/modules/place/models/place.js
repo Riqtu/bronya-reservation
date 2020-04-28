@@ -4,28 +4,34 @@ const PlaceSchema = new Schema({
   name: {
     type: String,
     required: 'Name is required',
-    trim: true
+    trim: true,
   },
   description: {
     type: String,
-    trim: true
+    trim: true,
   },
   logo: {
     type: String,
-    trim: true
+    trim: true,
   },
   table: [
     {
-      id: Number,
       x: Number,
       y: Number,
-      reserved: Boolean
-    }
+      reserved: Boolean,
+      guest: [
+        {
+          name: String,
+          phone: String,
+          date: Date,
+        },
+      ],
+    },
   ],
   map: {
     type: String,
-    trim: true
-  }
+    trim: true,
+  },
 })
 
 PlaceSchema.statics.createFields = [
@@ -33,7 +39,7 @@ PlaceSchema.statics.createFields = [
   'description',
   'logo',
   'table',
-  'map'
+  'map',
 ]
 
 export default mongoose.model('place', PlaceSchema)

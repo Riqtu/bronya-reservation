@@ -7,6 +7,8 @@ const router = new Router({ prefix: '/places' })
 
 router.post('/', placesController.create)
 router.put('/:id', checkUser(), placesController.update)
+router.put('/addGuest/:id/:tid/:name/:phone/:date', placesController.addGuest)
+
 router.delete('/:id', checkUser(), placesController.delete)
 router.get('/', placesController.getPlace)
 router.get('/:id', placesController.getPlaceByID)

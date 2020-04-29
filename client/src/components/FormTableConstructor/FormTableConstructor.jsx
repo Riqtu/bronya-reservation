@@ -94,7 +94,7 @@ const FormTableConstructor = (props) => {
 
     console.log(props.data)
 
-    const uploadData = await fetch('http://192.168.1.124:4002/api/places', {
+    const uploadData = await fetch(process.env.REACT_APP_GETPLACES, {
       method: 'POST',
       body: formData,
     })

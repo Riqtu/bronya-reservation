@@ -69,10 +69,11 @@ export default {
   },
   async addGuest(ctx) {
     const {
-      params: { id: _id, tid, name, phone, date },
+      params: { id: _id },
       request: { body },
     } = ctx
 
+    console.log(body)
     const place = await Place.findOne({ _id })
 
     if (!place) {
@@ -80,8 +81,12 @@ export default {
     }
     place.table.map((el, index) => {
       const tableId = place.table[index]._id
-      if (tableId == tid) {
-        place.table[index].guest.push({ name: name, phone: phone, date: date })
+      if (tableId == body.tableId) {
+        place.table[index].guest.push({
+          guestName: body.name,
+          phone: body.phone,
+          date: body.date,
+        })
         console.log('ok!')
       }
     })

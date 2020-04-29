@@ -56,6 +56,21 @@ const submit = css`
   }
 `
 
+const allPlaces = css`
+  /* margin-bottom: 20px; */
+  position: relative;
+  padding: 6px;
+  border-radius: 5px;
+  background-color: ${green};
+  border: none;
+  transition: 0.3s;
+  color: white;
+  font-size: 8pt;
+  cursor: pointer;
+  &:hover {
+    background-color: ${darkGreen};
+  }
+`
 const defaultState = css``
 
 const stateForAll = css`
@@ -88,6 +103,8 @@ export const ButtonWrapper = styled.button((props) => {
       return upload
     case 'submit':
       return submit
+    case 'allPlaces':
+      return allPlaces
     default:
       return defaultState
   }

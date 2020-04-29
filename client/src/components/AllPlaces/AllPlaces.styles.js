@@ -1,28 +1,11 @@
 import styled from '@emotion/styled'
 
 export const AllPlacesWrapper = styled.div`
-  background-image: linear-gradient(
-    -50deg,
-    #473b7b 0%,
-    #3584a7 51%,
-    #30d2be 120%
-  );
-  overflow-x: hidden;
-  background-size: 200% 100%;
-  animation: 15s background-animation ease infinite;
-  @keyframes background-animation {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
+  /* position: relative; */
+  margin-top: -20px;
+  background-color: #0f4c81;
   width: 100%;
-  height: 100vh;
+  z-index: 1000;
   a {
     color: black;
   }
@@ -34,7 +17,8 @@ export const Card = styled.div`
   width: 300px;
   height: 90px;
   background-color: white;
-  margin: 20px;
+  margin-top: 15px;
+  margin-left: 30px;
   border-radius: 15px;
   padding: 20px;
   float: left;

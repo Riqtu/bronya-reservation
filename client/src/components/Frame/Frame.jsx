@@ -10,11 +10,12 @@ import {
 } from './Frame.styles'
 import { getYear, getMonth, getDate, format } from 'date-fns'
 import table from './../../assets/table.svg'
+import loader from './../../assets/loader.svg'
 
 const Frame = (props) => {
   const [active, setActive] = useState({ i: 0, active: false })
 
-  const times = (start, end) => {
+  const times = (start, end, tableIndex, tableId, guest) => {
     let arr = []
     for (let i = start; i < end; i++) {
       arr.push(
@@ -36,13 +37,63 @@ const Frame = (props) => {
         )
       )
     }
-
+    let skip = false
+    let skipCounter = 0
     return arr.map((el, index) => {
-      return (
-        <React.Fragment key={index}>
-          <Time>{format(el, 'HH:mm')}</Time>
-        </React.Fragment>
-      )
+      const newArr = []
+      if (!skip) {
+        let match = false
+        for (let index = 0; index < arr.length; index++) {
+          if (
+            guest[index] &&
+            format(new Date(guest[index].date), 'HH:mm') === format(el, 'HH:mm')
+          ) {
+            skip = true
+            skipCounter = 0
+            match = true
+            newArr.push(
+              <Time key={guest[index].name} disabled>
+                {format(el, 'HH:mm')}
+              </Time>
+            )
+          }
+        }
+        !match &&
+          newArr.push(
+            <Time
+              key={tableId}
+              onClick={() => {
+                props.setDate(format(el, "yyyy-MM-dd'T'HH:mm"))
+                props.setTable(tableIndex)
+                props.setTableId(tableId)
+              }}
+            >
+              {format(el, 'HH:mm')}
+            </Time>
+          )
+        return newArr
+      } else {
+        newArr.push(
+          <Time key={index} disabled>
+            {format(el, 'HH:mm')}
+          </Time>
+        )
+        for (let index = 0; index < arr.length; index++) {
+          if (
+            guest[index] &&
+            format(new Date(guest[index].date), 'HH:mm') === format(el, 'HH:mm')
+          ) {
+            skipCounter--
+          }
+        }
+        if (skipCounter === 0) {
+          skip = false
+          skipCounter = 0
+        }
+        skipCounter++
+
+        return newArr
+      }
     })
   }
 
@@ -60,9 +111,15 @@ const Frame = (props) => {
             i={active.i}
             index={index}
           >
-            <InfoBar>СТОЛ 2</InfoBar>
+            <InfoBar>СТОЛ {index}</InfoBar>
             <Line></Line>
-            {times(10, 22)}
+            {times(
+              10,
+              22,
+              index,
+              props.places.table[index]._id,
+              props.places.table[index].guest
+            )}
           </TableTime>
           <Table
             src={table}
@@ -78,13 +135,19 @@ const Frame = (props) => {
       <Floor
         onClick={() => setActive({ i: 0, active: false })}
         wall={
-          'http://192.168.1.124:4002/' + (!props.isFetching && props.places.map)
+          process.env.REACT_APP_UPLOADS +
+          (!props.isFetching && props.places.map)
         }
       ></Floor>
       {tablePlace}
     </FrameWrapper>
   ) : (
-    <FrameWrapper>Loading...</FrameWrapper>
+    <FrameWrapper>
+      <Floor
+        onClick={() => setActive({ i: 0, active: false })}
+        wall={loader}
+      ></Floor>
+    </FrameWrapper>
   )
 }
 

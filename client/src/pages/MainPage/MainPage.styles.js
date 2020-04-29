@@ -23,7 +23,7 @@ export const MainPageWrapper = styled.section`
   }
   width: 100%;
   /* height: 150vh; */
-  min-height: fit-content;
+  /* min-height: fit-content; */
   color: white;
 `
 export const MainSection = styled.section``
@@ -73,7 +73,18 @@ export const BackFrames = styled.img`
 export const All = styled.section`
   position: relative;
   margin-top: -5px;
-  height: 100px;
+  height: fit-content;
   width: 100%;
+  min-height: 300px;
   background-color: #0f4c81;
+`
+
+export const Partners = styled.h1`
+  position: relative;
+  margin-top: 0;
+  padding: 0px 30px;
+  margin-top: 0;
+  padding-bottom: 0;
+  font-size: 35pt;
+  text-transform: uppercase;
 `

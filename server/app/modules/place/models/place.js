@@ -21,7 +21,7 @@ const PlaceSchema = new Schema({
       reserved: Boolean,
       guest: [
         {
-          name: String,
+          guestName: String,
           phone: String,
           date: Date,
         },

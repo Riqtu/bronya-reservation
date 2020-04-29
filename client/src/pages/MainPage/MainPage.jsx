@@ -8,9 +8,10 @@ import {
   BackFrames,
   MainSection,
   All,
+  Partners,
 } from './MainPage.styles'
 
-import { Button } from '../../components'
+import { Button, AllPlaces } from '../../components'
 
 import logo from './../../assets/logo.svg'
 import backFrames from './../../assets/back-frames.svg'
@@ -32,7 +33,10 @@ const MainPage = () => (
       <Button state="start" text="Узнать больше" />
       <BackFrames src={backFrames} alt="" />
     </MainSection>
-    <All></All>
+    <All>
+      <Partners>Партнеры</Partners>
+      <AllPlaces></AllPlaces>
+    </All>
   </MainPageWrapper>
 )
 

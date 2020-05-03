@@ -91,10 +91,16 @@ export default {
       }
     })
 
+    ctx.socket.on('connect', () => {
+      ctx.socket.emit('update')
+    })
+
     const newData = pick(body, Place.createFields)
 
     const updatedPlace = await PlaceService.updatePlace(newData, place)
 
     ctx.body = { data: updatedPlace }
+
+    ctx.req.io.emit('message', 'update')
   },
 }

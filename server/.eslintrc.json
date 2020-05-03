@@ -13,6 +13,7 @@
     "no-unused-vars": "warn",
     "comma-dangle": 0,
     "indent": 0,
-    "no-invalid-this": 0
+    "no-invalid-this": 0,
+    "space-before-function-paren": 0
   }
 }

@@ -9,7 +9,6 @@ import {
   Line,
 } from './Frame.styles'
 import { getYear, getMonth, getDate, format } from 'date-fns'
-import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import table from './../../assets/table.svg'
 import loader from './../../assets/loader.svg'

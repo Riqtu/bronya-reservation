@@ -5,6 +5,11 @@ import { css } from '@emotion/core'
 import { floor } from './../../constants'
 import { flash } from './../../animations.styles'
 
+const color1 = (props) =>
+  props.color && props.color.color1 ? props.color.color1 : '#473b7b'
+const color2 = (props) => (props.color ? props.color.color2 : '#3584a7')
+const color3 = (props) => (props.color ? props.color.color3 : '#30d2be')
+
 const flow = keyframes`
   0%, 100%{
     transform:  translateY(0%)
@@ -16,9 +21,9 @@ const flow = keyframes`
 export const ReservationWrapper = styled.div`
   background-image: linear-gradient(
     -50deg,
-    #473b7b 0%,
-    #3584a7 51%,
-    #30d2be 120%
+    ${color1} 0%,
+    ${color2} 51%,
+    ${color3} 120%
   );
   overflow-x: hidden;
   background-size: 200% 100%;

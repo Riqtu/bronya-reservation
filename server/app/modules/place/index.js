@@ -10,6 +10,7 @@ router.put('/:id', checkUser(), placesController.update)
 router.put('/addGuest/:id', placesController.addGuest)
 
 router.delete('/:id', checkUser(), placesController.delete)
+
 router.get('/', placesController.getPlace)
 router.get('/:id', placesController.getPlaceByID)
 

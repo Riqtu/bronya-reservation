@@ -13,6 +13,8 @@ import { Frame, FormReservation } from '../../components'
 import { useParams, Link } from 'react-router-dom'
 import { format } from 'date-fns'
 
+import io from 'socket.io-client'
+
 import logo from './../../assets/logo.svg'
 
 const Reservation = (props) => {
@@ -41,11 +43,20 @@ const Reservation = (props) => {
 
   useEffect(() => {
     handleFetch()
-    const update = setInterval(handleFetch, 3000)
-    return () => clearInterval(update)
+    const socket = io.connect(process.env.REACT_APP_ENDPOINT)
+
+    socket.on('message', (data) => {
+      console.log(data)
+      if (data === 'update') {
+        handleFetch()
+        socket.emit('message', 'Update place')
+      }
+    })
+    socket.emit('message', 'Hello Server')
   }, [handleFetch])
+
   return (
-    <ReservationWrapper>
+    <ReservationWrapper color={places.data && places.data.color}>
       <Header>
         <Link to="/">
           <Logo src={logo}></Logo>

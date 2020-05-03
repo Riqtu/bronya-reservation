@@ -1,11 +1,15 @@
 import styled from '@emotion/styled'
 
+const color1 = (props) => props.color.color1
+const color2 = (props) => props.color.color2
+const color3 = (props) => props.color.color3
+
 export const ConstructorWrapper = styled.div`
   background-image: linear-gradient(
     -50deg,
-    #473b7b 0%,
-    #3584a7 51%,
-    #30d2be 120%
+    ${color1} 0%,
+    ${color2} 51%,
+    ${color3} 120%
   );
   width: 100%;
   height: 100vh;

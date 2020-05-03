@@ -87,6 +87,7 @@ const FormTableConstructor = (props) => {
     props.setData((props.data.name = props.name))
     props.setData((props.data.address = props.address))
     props.setData((props.data.description = props.description))
+    props.setData((props.data.color = props.color))
 
     const formData = new FormData()
     formData.append('body', JSON.stringify(props.data))
@@ -212,6 +213,52 @@ const FormTableConstructor = (props) => {
             type="text"
             value={props.address}
             onChange={(e) => props.setAddress(e.target.value)}
+          />
+        </label>
+      </LargeInput>
+      <LargeInput>
+        <label>
+          Первый цвет
+          <input
+            type="color"
+            value={props.color.color1}
+            onChange={(e) =>
+              props.setColor({
+                color1: e.target.value,
+                color2: props.color.color2,
+                color3: props.color.color3,
+              })
+            }
+          />
+        </label>
+        <br />
+        <label>
+          Второй цвет
+          <input
+            type="color"
+            value={props.color.color2}
+            onChange={(e) =>
+              props.setColor({
+                color1: props.color.color1,
+                color2: e.target.value,
+                color3: props.color.color3,
+              })
+            }
+          />
+        </label>
+        <br />
+        <label>
+          Третий цвет
+          <input
+            type="color"
+            value={props.color.color3}
+            onChange={(e) =>
+              props.setColor({
+                color1: props.color.color1,
+                color2: props.color.color2,
+                color3: e.target.value,
+              })
+            }
           />
         </label>
       </LargeInput>

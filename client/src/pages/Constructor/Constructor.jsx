@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { FrameConstructor, FormTableConstructor } from '../../components'
 import { ConstructorWrapper, PlaceLogo, Logo } from './Constructor.styles'
+import { Link } from 'react-router-dom'
+
 import bronyaLogo from './../../assets/logo.svg'
 
 const Constructor = () => {
@@ -15,6 +17,12 @@ const Constructor = () => {
   const [image, setImage] = useState({ preview: '', raw: '' })
   const [logo, setLogo] = useState({ preview: '', raw: '' })
 
+  const [color, setColor] = useState({
+    color1: '#473b7b',
+    color2: '#3584a7',
+    color3: '#30d2be',
+  })
+
   const [data, setData] = useState({
     description: 'TestDescription',
     table: [],
@@ -25,10 +33,12 @@ const Constructor = () => {
 
   console.log(data)
   return (
-    <ConstructorWrapper>
+    <ConstructorWrapper color={color}>
       {JSON.stringify(data)}
       {JSON.stringify(file.path)}
-      <Logo src={bronyaLogo}></Logo>
+      <Link to="/">
+        <Logo src={bronyaLogo}></Logo>
+      </Link>
       <PlaceLogo logo={logo.preview}></PlaceLogo>
       <FrameConstructor
         table={table}
@@ -37,6 +47,8 @@ const Constructor = () => {
         image={image.preview}
       ></FrameConstructor>
       <FormTableConstructor
+        setColor={setColor}
+        color={color}
         table={table}
         data={data}
         setData={setData}

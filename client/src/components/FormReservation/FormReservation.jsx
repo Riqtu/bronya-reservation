@@ -56,6 +56,7 @@ const FormReservation = (props) => {
       .catch((err) => console.log(err))
 
     props.handleFetch()
+
     setIsUpload(true)
   }
 

@@ -9,6 +9,8 @@ import {
   Line,
 } from './Frame.styles'
 import { getYear, getMonth, getDate, format } from 'date-fns'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 import table from './../../assets/table.svg'
 import loader from './../../assets/loader.svg'
 
@@ -20,17 +22,17 @@ const Frame = (props) => {
     for (let i = start; i < end; i++) {
       arr.push(
         new Date(
-          getYear(Date.now()),
-          getMonth(Date.now()),
-          getDate(Date.now()),
+          getYear(new Date(props.dateElement)),
+          getMonth(new Date(props.dateElement)),
+          getDate(new Date(props.dateElement)),
           i,
           0,
           0
         ),
         new Date(
-          getYear(Date.now()),
-          getMonth(Date.now()),
-          getDate(Date.now()),
+          getYear(new Date(props.dateElement)),
+          getMonth(new Date(props.dateElement)),
+          getDate(new Date(props.dateElement)),
           i,
           30,
           0
@@ -46,13 +48,14 @@ const Frame = (props) => {
         for (let index = 0; index < arr.length; index++) {
           if (
             guest[index] &&
-            format(new Date(guest[index].date), 'HH:mm') === format(el, 'HH:mm')
+            format(new Date(guest[index].date), "yyyy-MM-dd'T'HH:mm") ===
+              format(el, "yyyy-MM-dd'T'HH:mm")
           ) {
             skip = true
             skipCounter = 0
             match = true
             newArr.push(
-              <Time key={guest[index].name} disabled>
+              <Time key={index} disabled>
                 {format(el, 'HH:mm')}
               </Time>
             )
@@ -61,7 +64,7 @@ const Frame = (props) => {
         !match &&
           newArr.push(
             <Time
-              key={tableId}
+              key={index}
               onClick={() => {
                 props.setDate(format(el, "yyyy-MM-dd'T'HH:mm"))
                 props.setTable(tableIndex)
@@ -81,7 +84,8 @@ const Frame = (props) => {
         for (let index = 0; index < arr.length; index++) {
           if (
             guest[index] &&
-            format(new Date(guest[index].date), 'HH:mm') === format(el, 'HH:mm')
+            format(new Date(guest[index].date), "yyyy-MM-dd'T'HH:mm") ===
+              format(el, "yyyy-MM-dd'T'HH:mm")
           ) {
             skipCounter--
           }
@@ -103,7 +107,7 @@ const Frame = (props) => {
     props.places.table &&
     props.places.table.map((el, index) => {
       return (
-        <div key={index}>
+        <React.Fragment key={index}>
           <TableTime
             y={props.places.table[index].y + '%'}
             x={props.places.table[index].x + '%'}
@@ -111,7 +115,14 @@ const Frame = (props) => {
             i={active.i}
             index={index}
           >
-            <InfoBar>СТОЛ {index}</InfoBar>
+            <InfoBar
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+              }}
+            >
+              СТОЛ {index}
+            </InfoBar>
             <Line></Line>
             {times(
               10,
@@ -125,22 +136,30 @@ const Frame = (props) => {
             src={table}
             y={props.places.table[index].y + '%'}
             x={props.places.table[index].x + '%'}
-            onClick={() => setActive({ i: index, active: true })}
+            onClick={(e) => {
+              setActive({ i: index, active: true })
+              e.preventDefault()
+              e.stopPropagation()
+            }}
           ></Table>
-        </div>
+        </React.Fragment>
       )
     })
   return props.places ? (
-    <FrameWrapper>
-      <Floor
-        onClick={() => setActive({ i: 0, active: false })}
-        wall={
-          process.env.REACT_APP_UPLOADS +
-          (!props.isFetching && props.places.map)
-        }
-      ></Floor>
-      {tablePlace}
-    </FrameWrapper>
+    <React.Fragment>
+      <FrameWrapper>
+        <Floor
+          onClick={() => setActive({ i: 0, active: false })}
+          wall={
+            process.env.REACT_APP_UPLOADS +
+            (!props.isFetching && props.places.map)
+          }
+        ></Floor>
+      </FrameWrapper>
+      <FrameWrapper onClick={() => setActive({ i: 0, active: false })}>
+        {tablePlace}
+      </FrameWrapper>
+    </React.Fragment>
   ) : (
     <FrameWrapper>
       <Floor

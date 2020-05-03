@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { flash } from './../../animations.styles'
 
 export const MainPageWrapper = styled.section`
   background-image: linear-gradient(
@@ -9,7 +10,8 @@ export const MainPageWrapper = styled.section`
   );
   overflow-x: hidden;
   background-size: 200% 100%;
-  animation: 15s background-animation ease infinite;
+  animation: 15s background-animation ease infinite,
+    0.5s ${flash} ease-in-out forwards;
   @keyframes background-animation {
     0% {
       background-position: 0% 50%;

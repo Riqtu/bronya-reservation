@@ -27,6 +27,8 @@ export const Floor = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   transform: rotateX(60deg) rotateY(0deg) rotateZ(-45deg) perspective(500px);
+  -webkit-transform: -webkit-rotateX(60deg) -webkit-rotateY(0deg) -webkit-rotateZ(-45deg) -webkit-perspective(00px);
+
 `
 export const Wall = styled.div`
   position: absolute;

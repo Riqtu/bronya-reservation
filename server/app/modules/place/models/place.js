@@ -10,6 +10,10 @@ const PlaceSchema = new Schema({
     type: String,
     trim: true,
   },
+  address: {
+    type: String,
+    trim: true,
+  },
   logo: {
     type: String,
     trim: true,
@@ -37,6 +41,7 @@ const PlaceSchema = new Schema({
 PlaceSchema.statics.createFields = [
   'name',
   'description',
+  'address',
   'logo',
   'table',
   'map',

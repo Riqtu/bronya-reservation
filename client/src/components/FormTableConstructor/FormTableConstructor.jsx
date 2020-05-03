@@ -85,6 +85,7 @@ const FormTableConstructor = (props) => {
   const handleUpload = async (e) => {
     e.preventDefault()
     props.setData((props.data.name = props.name))
+    props.setData((props.data.address = props.address))
     props.setData((props.data.description = props.description))
 
     const formData = new FormData()
@@ -204,6 +205,16 @@ const FormTableConstructor = (props) => {
           />
         </label>
       </LargeInput>
+      <LargeInput>
+        <label>
+          Адрес
+          <input
+            type="text"
+            value={props.address}
+            onChange={(e) => props.setAddress(e.target.value)}
+          />
+        </label>
+      </LargeInput>
       <LargeInput text>
         <label>
           Описание
@@ -214,6 +225,7 @@ const FormTableConstructor = (props) => {
           />
         </label>
       </LargeInput>
+
       <FileInput>
         <input
           type="file"

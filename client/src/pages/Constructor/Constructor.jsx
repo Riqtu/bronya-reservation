@@ -9,6 +9,8 @@ const Constructor = () => {
   const [y, setY] = useState(14)
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
+  const [address, setAddress] = useState('')
+
   const [file, setFile] = useState({})
   const [image, setImage] = useState({ preview: '', raw: '' })
   const [logo, setLogo] = useState({ preview: '', raw: '' })
@@ -54,6 +56,8 @@ const Constructor = () => {
         setName={setName}
         description={description}
         setDescription={setDescription}
+        address={address}
+        setAddress={setAddress}
       ></FormTableConstructor>
     </ConstructorWrapper>
   )

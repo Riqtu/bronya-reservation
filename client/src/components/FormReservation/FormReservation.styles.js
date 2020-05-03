@@ -1,4 +1,6 @@
 import styled from '@emotion/styled'
+import { css } from '@emotion/core'
+import { green } from './../../constants'
 
 export const FormReservationWrapper = styled.div`
   position: absolute;
@@ -48,7 +50,7 @@ export const Label = styled.div`
   float: left;
 `
 
-export const Input = styled.input`
+const inputState = css`
   position: relative;
   width: calc(100% - 90px);
   height: 50px;
@@ -72,6 +74,17 @@ export const Input = styled.input`
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   }
 `
+const notValid = css`
+  background-color: #d84353;
+  opacity: 0.5;
+`
+export const PhoneInput = styled.input((props) => {
+  return props.isValidPhone ? inputState : [inputState, notValid]
+})
+
+export const Input = styled.input((props) => {
+  return inputState
+})
 
 export const SmallInput = styled.input`
   position: relative;
@@ -98,4 +111,72 @@ export const SmallInput = styled.input`
   &:active {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   }
+`
+
+export const Upload = styled.section`
+  border-radius: 15px;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% - 50px);
+  height: calc(100% - 50px);
+  background-color: ${green};
+  background-image: linear-gradient(to top, #37ecba 0%, #72afd3 100%);
+  overflow-x: hidden;
+  background-size: 200% 200%;
+  animation: 4s background-animation ease infinite;
+  @keyframes background-animation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 50% 100%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  transition: 0.4s;
+  visibility: ${(props) => (props.isUpload ? 'visible' : 'hidden')};
+  opacity: ${(props) => (props.isUpload ? '1' : '0')};
+  padding: 25px;
+`
+export const UploadLogo = styled.section`
+  position: relative;
+  width: 100%;
+  height: 40%;
+  background-image: url('${(props) => props.back}');
+  background-position: center;
+  background-size: 50%;
+  background-repeat: no-repeat;
+  margin-bottom: 20px;
+`
+export const UploadText = styled.section`
+  position: relative;
+  width: 100%;
+  height: 40%;
+  h1 {
+    font-size: 20pt;
+    margin-bottom: 20px;
+    padding: 0;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  p {
+    margin: 0;
+    padding: 0;
+    font-size: 13pt;
+
+    text-align: left;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+  h2 {
+    font-size: 18pt;
+    padding: 0;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  /* background-color: blue; */
 `

@@ -14,6 +14,7 @@ export const FrameWrapper = styled.div`
     height: calc(432px / 1.5);
     text-align: center;
   }
+  z-index: 0;
 `
 
 export const Floor = styled.div`
@@ -25,7 +26,10 @@ export const Floor = styled.div`
   background-image: url('${(props) => props.wall}');
   background-repeat: no-repeat;
   background-size: cover;
-  transform: rotateX(60deg) rotateY(0deg) rotateZ(-45deg) perspective(500px);
+  z-index: 1;
+  transform: rotateX(60deg) rotateY(0deg) rotateZ(-45deg);
+
+
 `
 export const Wall = styled.div`
   position: absolute;
@@ -110,6 +114,7 @@ export const Time = styled.button`
   }
   &:focus {
     outline: none;
+    background-color: ${darkGreen};
   }
   &:disabled {
     background-color: ${wall};

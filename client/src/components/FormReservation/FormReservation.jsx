@@ -20,6 +20,7 @@ import calendar from './../../assets/form_calendar.svg'
 import guests from './../../assets/form_guests.svg'
 import table from './../../assets/form_table.svg'
 import check from './../../assets/check.svg'
+import loader from './../../assets/loader.svg'
 
 import Button from '../Button'
 
@@ -40,8 +41,8 @@ const FormReservation = (props) => {
 
     console.log(data)
 
-    const uploadData = await fetch(process.env.REACT_APP_ADDGUEST + props.id, {
-      method: 'PUT',
+    const uploadData = await fetch(process.env.REACT_APP_ADDGUEST, {
+      method: 'POST',
       body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
@@ -62,8 +63,10 @@ const FormReservation = (props) => {
 
   return (
     <FormReservationWrapper>
-      {!props.isFetching && props.places && (
+      {!props.isFetching && props.places ? (
         <Logo logo={process.env.REACT_APP_UPLOADS + props.places.logo}></Logo>
+      ) : (
+        <Logo logo={loader}></Logo>
       )}
       <InputLine>
         <Label back={namePick} />
@@ -125,7 +128,12 @@ const FormReservation = (props) => {
             <br />
             Адрес: <b>{props.places && props.places.address}</b>
           </p>
-          <h2>Ждем тебя! 🐱</h2>
+          <h2>
+            Ждем тебя!{' '}
+            <span role="img" aria-label="cat">
+              🐱
+            </span>
+          </h2>
         </UploadText>
       </Upload>
     </FormReservationWrapper>

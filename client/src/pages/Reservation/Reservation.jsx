@@ -13,12 +13,11 @@ import { Frame, FormReservation } from '../../components'
 import { useParams, Link } from 'react-router-dom'
 import { format } from 'date-fns'
 
-import io from 'socket.io-client'
-
 import logo from './../../assets/logo.svg'
 
 const Reservation = (props) => {
   let { id } = useParams()
+
   const [hasError, setErrors] = useState(false)
   const [isFetching, setIsFetching] = useState(true)
   const [places, setPlaces] = useState({})
@@ -43,16 +42,6 @@ const Reservation = (props) => {
 
   useEffect(() => {
     handleFetch()
-    const socket = io.connect(process.env.REACT_APP_ENDPOINT)
-
-    socket.on('message', (data) => {
-      console.log(data)
-      if (data === 'update') {
-        handleFetch()
-        socket.emit('message', 'Update place')
-      }
-    })
-    socket.emit('message', 'Hello Server')
   }, [handleFetch])
 
   return (

@@ -1,0 +1,92 @@
+import pick from 'lodash/pick'
+import { Reservation } from '../models'
+import { ReservationService } from '../services'
+import { getYear, format } from 'date-fns'
+
+export default {
+  async create(ctx) {
+    const reservation = ctx.request.body
+    const reservationData = {
+      ...pick(reservation, Reservation.createFields),
+    }
+    try {
+      const { _id } = await ReservationService.createReservation(
+        reservationData
+      )
+      const reservation = await Reservation.findOne({ _id })
+      ctx.body = { data: reservation }
+      ctx.req.io.emit('message', { action: 'update', id: reservation.tableId })
+    } catch (e) {
+      console.log(e)
+      ctx.throw(400, e)
+    }
+  },
+  async update(ctx) {
+    const {
+      params: { id: _id },
+      request: { body },
+    } = ctx
+
+    const reservation = await Reservation.findOne({ _id })
+
+    if (!reservation) {
+      ctx.throw(404, 'Missing place')
+    }
+
+    const newData = pick(body, Reservation.createFields)
+
+    const updatedPlace = await ReservationService.updateReservation(
+      newData,
+      reservation
+    )
+
+    ctx.body = { data: updatedPlace }
+  },
+  async delete(ctx) {
+    const {
+      params: { id: _id },
+    } = ctx
+
+    const reservation = await Reservation.findOne({ _id })
+
+    if (!reservation) {
+      ctx.throw(404, 'Missing place')
+    }
+
+    await reservation.remove()
+
+    ctx.body = { data: { id: _id } }
+  },
+  async getByID(ctx) {
+    const {
+      params: { id: _id },
+    } = ctx
+    const reservation = await Reservation.findOne({ _id })
+
+    ctx.body = { data: pick(reservation, Reservation.createFields) }
+  },
+  async get(ctx) {
+    const reservation = await Reservation.find({})
+    ctx.body = { data: reservation }
+  },
+  async getByTableId(ctx) {
+    const {
+      params: { table: table },
+    } = ctx
+
+    const date = new Date()
+    date.setDate(date.getDate() - 1)
+
+    const reservation = await Reservation.find({
+      $and: [
+        { tableId: table },
+        {
+          date: {
+            $gt: date,
+          },
+        },
+      ],
+    })
+    ctx.body = { data: reservation }
+  },
+}

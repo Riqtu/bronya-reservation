@@ -2,6 +2,10 @@ import pick from 'lodash/pick'
 import { Place } from './../models'
 import { PlaceService } from './../services'
 
+import { Reservation } from './../../reservation/models'
+
+import { format } from 'date-fns'
+
 export default {
   async create(ctx) {
     const fileNameMap = ctx.request.files.image.path.split('/')
@@ -61,6 +65,27 @@ export default {
     } = ctx
     const place = await Place.findOne({ _id })
 
+    // const future = place.table.map((el, index) => {
+    //   const clearGuest = el.guest.filter((el, index) => {
+    //     if (
+    //       format(el.date, `yyyy-MM-dd'T'HH:mm`) >=
+    //       format(Date.now(), `yyyy-MM-dd'T'HH:mm`)
+    //     ) {
+    //       console.log('Found: ', el.date)
+    //       return el
+    //     }
+    //   })
+    //   el.guest = clearGuest
+    //   return el
+    // })
+
+    // const newData = place
+    // newData.table = future
+
+    // console.log(newData)
+
+    // await PlaceService.updatePlace(newData, place)
+
     ctx.body = { data: pick(place, Place.createFields) }
   },
   async getPlace(ctx) {
@@ -83,7 +108,7 @@ export default {
       const tableId = place.table[index]._id
       if (tableId == body.tableId) {
         place.table[index].guest.push({
-          guestName: body.name,
+          guestName: body.guestName,
           phone: body.phone,
           date: body.date,
         })
@@ -101,6 +126,36 @@ export default {
 
     ctx.body = { data: updatedPlace }
 
-    ctx.req.io.emit('message', 'update')
+    ctx.req.io.emit('message', { action: 'update', id: _id })
+  },
+
+  async clearGuests() {
+    const place = await Place.find({})
+
+    const future = place.map((el, index) => {
+      el.table.map((el, index) => {
+        const clearGuest = el.guest.filter((el, index) => {
+          if (
+            format(el.date, `yyyy-MM-dd'T'HH:mm`) >=
+            format(Date.now(), `yyyy-MM-dd'T'HH:mm`)
+          ) {
+            console.log('Found: ', el.date)
+            return el
+          }
+        })
+        el.guest = clearGuest
+        return el
+      })
+      return el
+    })
+
+    const newData = place
+    newData.table = future
+
+    console.log(newData)
+
+    await PlaceService.updatePlace(newData, place)
+
+    console.log('CLEAT GUESTS')
   },
 }

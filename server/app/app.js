@@ -11,7 +11,6 @@ const io = require('socket.io')(4000)
 connectorsInit()
 
 const app = new Koa()
-
 app.use(cors())
 io.on('connection', (socket) => {
   socket.on('message', (data) => {

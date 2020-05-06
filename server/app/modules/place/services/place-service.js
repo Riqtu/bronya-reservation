@@ -1,4 +1,5 @@
 import { Place } from './../models'
+import { format } from 'date-fns'
 
 export default {
   async createPlace(data) {
@@ -8,5 +9,5 @@ export default {
     place.set(data)
 
     return place.save()
-  }
+  },
 }

@@ -92,11 +92,9 @@ export const BackFloor = styled.div`
   height: 100%;
   left: 15%;
   background-color: ${floor};
-  background-image: url('${(props) => props.wall}');
   background-repeat: no-repeat;
   background-size: cover;
   transform: rotateX(60deg) rotateY(0deg) rotateZ(-45deg) perspective(500px);
-
 `
 
 const inputState = css`

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
   FrameWrapper,
   Table,
@@ -7,97 +7,125 @@ import {
   Time,
   InfoBar,
   Line,
+  Loader,
 } from './Frame.styles'
-import { getYear, getMonth, getDate, format } from 'date-fns'
+import { getYear, getMonth, getDate, format, addMinutes } from 'date-fns'
 import 'react-datepicker/dist/react-datepicker.css'
 import table from './../../assets/table.svg'
 import loader from './../../assets/loader.svg'
+import io from 'socket.io-client'
 
 const Frame = (props) => {
   const [active, setActive] = useState({ i: 0, active: false })
+  const [data, setData] = useState({})
+  const [hasError, setErrors] = useState(false)
+  const [isFetching, setIsFetching] = useState(true)
+  const [tableId, setTableId] = useState('')
 
-  const times = (start, end, tableIndex, tableId, guest) => {
-    let arr = []
-    for (let i = start; i < end; i++) {
-      arr.push(
-        new Date(
-          getYear(new Date(props.dateElement)),
-          getMonth(new Date(props.dateElement)),
-          getDate(new Date(props.dateElement)),
-          i,
-          0,
-          0
-        ),
-        new Date(
-          getYear(new Date(props.dateElement)),
-          getMonth(new Date(props.dateElement)),
-          getDate(new Date(props.dateElement)),
-          i,
-          30,
-          0
-        )
-      )
-    }
-    let skip = false
-    let skipCounter = 0
-    return arr.map((el, index) => {
-      const newArr = []
-      if (!skip) {
-        let match = false
-        for (let index = 0; index < arr.length; index++) {
-          if (
-            guest[index] &&
-            format(new Date(guest[index].date), "yyyy-MM-dd'T'HH:mm") ===
-              format(el, "yyyy-MM-dd'T'HH:mm")
-          ) {
-            skip = true
-            skipCounter = 0
-            match = true
-            newArr.push(
-              <Time key={index} disabled>
-                {format(el, 'HH:mm')}
-              </Time>
-            )
-          }
-        }
-        !match &&
-          newArr.push(
-            <Time
-              key={index}
-              onClick={() => {
-                props.setDate(format(el, "yyyy-MM-dd'T'HH:mm"))
-                props.setTable(tableIndex)
-                props.setTableId(tableId)
-              }}
-            >
-              {format(el, 'HH:mm')}
-            </Time>
-          )
-        return newArr
-      } else {
-        newArr.push(
-          <Time key={index} disabled>
-            {format(el, 'HH:mm')}
-          </Time>
-        )
-        for (let index = 0; index < arr.length; index++) {
-          if (
-            guest[index] &&
-            format(new Date(guest[index].date), "yyyy-MM-dd'T'HH:mm") ===
-              format(el, "yyyy-MM-dd'T'HH:mm")
-          ) {
-            skipCounter--
-          }
-        }
-        if (skipCounter === 0) {
-          skip = false
-          skipCounter = 0
-        }
-        skipCounter++
+  const handleFetch = useCallback((id) => {
+    fetch(process.env.REACT_APP_GETRESERVATIONS + 'table/' + id)
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data.data)
+        setIsFetching(false)
+        console.log(data.data)
+      })
+      .catch((err) => setErrors(err))
+  }, [])
 
-        return newArr
+  const handleSocket = useCallback(() => {
+    const socket = io.connect(process.env.REACT_APP_ENDPOINT)
+
+    socket.on('message', (data) => {
+      console.log(data)
+      if (data.action === 'update' && tableId === data.id) {
+        console.log(tableId)
+        handleFetch(data.id)
+        socket.emit('message', 'Update place')
       }
     })
+    socket.emit('message', 'Hello Server')
+  }, [handleFetch, tableId])
+
+  useEffect(() => {
+    // handleFetch()
+    handleSocket()
+  }, [handleFetch, handleSocket])
+
+  const generate = (start, end, tableIndex, tableId) => {
+    let arr = []
+    for (let i = start; i < end; i++) {
+      const thisDate = new Date(
+        getYear(new Date(props.dateElement)),
+        getMonth(new Date(props.dateElement)),
+        getDate(new Date(props.dateElement)),
+        i,
+        0,
+        0
+      )
+      arr.push(
+        format(thisDate, "yyyy-MM-dd'T'HH:mm"),
+        format(addMinutes(thisDate, 30), "yyyy-MM-dd'T'HH:mm")
+      )
+    }
+
+    if (data) {
+      for (let index = 0; index < data.length; index++) {
+        const find = arr.indexOf(
+          data[index] &&
+            format(new Date(data[index].date), "yyyy-MM-dd'T'HH:mm")
+        )
+        if (find !== -1) {
+          arr[find] = {
+            date:
+              data[index] &&
+              format(new Date(data[index].date), "yyyy-MM-dd'T'HH:mm"),
+            res: true,
+          }
+          arr[find + 1] = {
+            date:
+              data[index] &&
+              format(
+                addMinutes(new Date(data[index].date), 30),
+                "yyyy-MM-dd'T'HH:mm"
+              ),
+            res: true,
+          }
+        }
+      }
+    }
+
+    console.log(props.date)
+
+    let retrurnArr = []
+
+    arr.map((el, index) => {
+      if (el && el.res === true) {
+        retrurnArr.push(
+          <Time key={index} disabled active={active.active}>
+            {format(new Date(el.date), 'HH:mm')}
+          </Time>
+        )
+      } else {
+        retrurnArr.push(
+          <Time
+            key={index}
+            active={active.active}
+            onClick={(e) => {
+              props.setDate(format(new Date(el), "yyyy-MM-dd'T'HH:mm"))
+              props.setTable(tableIndex)
+              props.setTableId(tableId)
+              e.preventDefault()
+              e.stopPropagation()
+            }}
+          >
+            {format(new Date(el), 'HH:mm')}
+          </Time>
+        )
+      }
+    })
+
+    return retrurnArr
   }
 
   const tablePlace =
@@ -123,12 +151,16 @@ const Frame = (props) => {
               СТОЛ {index}
             </InfoBar>
             <Line></Line>
-            {times(
-              10,
-              22,
-              index,
-              props.places.table[index]._id,
-              props.places.table[index].guest
+            {!isFetching && data ? (
+              generate(
+                10,
+                22,
+                index,
+                props.places.table[index]._id,
+                props.places.table[index].guest
+              )
+            ) : (
+              <Loader wall={loader} />
             )}
           </TableTime>
           <Table
@@ -136,7 +168,10 @@ const Frame = (props) => {
             y={props.places.table[index].y + '%'}
             x={props.places.table[index].x + '%'}
             onClick={(e) => {
+              setIsFetching(true)
               setActive({ i: index, active: true })
+              handleFetch(props.places.table[index]._id)
+              setTableId(props.places.table[index]._id)
               e.preventDefault()
               e.stopPropagation()
             }}
@@ -155,7 +190,12 @@ const Frame = (props) => {
           }
         ></Floor>
       </FrameWrapper>
-      <FrameWrapper onClick={() => setActive({ i: 0, active: false })}>
+      <FrameWrapper
+        onClick={() => {
+          setIsFetching(true)
+          setActive({ i: 0, active: false })
+        }}
+      >
         {tablePlace}
       </FrameWrapper>
     </React.Fragment>

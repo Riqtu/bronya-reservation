@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   FrameConstructorWrapper,
   Table,
@@ -7,6 +7,41 @@ import {
 
 import table from './../../assets/table.svg'
 const FrameConstructor = (props) => {
+  function showCoords(evt) {
+    var rect = document.getElementById('test').getBoundingClientRect()
+    var x = rect.right - evt.clientX
+    var y = rect.bottom - evt.clientY
+    var pixelsX = x + 30
+    var screenWidthX = rect.width
+    var percentageX = ((screenWidthX - pixelsX) / screenWidthX) * 100
+    var pixelsY = y + 30
+    var screenWidthY = rect.height
+    var percentageY = ((screenWidthY - pixelsY) / screenWidthY) * 100
+    // alert('Left: ' + x + ', Top: ' + x)
+    if (
+      percentageY > 0 &&
+      percentageY < 100 &&
+      percentageX > 0 &&
+      percentageX < 100
+    ) {
+      props.setY(percentageY)
+      props.setX(percentageX)
+    }
+  }
+  const pushTable = () => {
+    props.setData((prev) =>
+      Object.assign({}, prev, {
+        table: [...prev.table, { id: props.id, x: props.x, y: props.y }],
+      })
+    )
+  }
+  useEffect(() => {
+    window.addEventListener('mousemove', showCoords)
+
+    return () => {
+      window.removeEventListener('mousemove', showCoords)
+    }
+  })
   const tablePlace =
     props.places &&
     props.places.table &&
@@ -21,7 +56,7 @@ const FrameConstructor = (props) => {
       )
     })
   return (
-    <FrameConstructorWrapper>
+    <FrameConstructorWrapper id="test" onClick={pushTable}>
       <Floor wall={props.image}></Floor>
       <Table
         src={table}

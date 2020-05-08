@@ -34,17 +34,24 @@ const FormTableConstructor = (props) => {
         break
     }
   }
+  const mouseMover = (e) => {
+    props.setX(e.target.clientX)
+  }
+
   useEffect(() => {
     window.addEventListener('keydown', keyPressHandler)
+
     return () => {
       window.removeEventListener('keydown', keyPressHandler)
     }
   })
 
   const pushTable = () => {
-    const newData = props.data.table
-    props.data.table.push({ id: props.id, x: props.x, y: props.y })
-    props.setData(Object.assign({ table: newData }, props.data))
+    props.setData((prev) =>
+      Object.assign({}, prev, {
+        table: [...prev.table, { id: props.id, x: props.x, y: props.y }],
+      })
+    )
   }
 
   const updateTableID = (e, index, x, y) => {
@@ -80,14 +87,28 @@ const FormTableConstructor = (props) => {
       preview: URL.createObjectURL(e.target.files[0]),
       raw: e.target.files[0],
     })
+    console.log(props.logo)
   }
 
   const handleUpload = async (e) => {
     e.preventDefault()
+
     props.setData((props.data.name = props.name))
     props.setData((props.data.address = props.address))
     props.setData((props.data.description = props.description))
     props.setData((props.data.color = props.color))
+    props.setData(
+      (props.data.logo = props.logo.preview.replace(
+        process.env.REACT_APP_UPLOADS,
+        ''
+      ))
+    )
+    props.setData(
+      (props.data.map = props.image.preview.replace(
+        process.env.REACT_APP_UPLOADS,
+        ''
+      ))
+    )
 
     const formData = new FormData()
     formData.append('body', JSON.stringify(props.data))
@@ -96,17 +117,29 @@ const FormTableConstructor = (props) => {
 
     console.log(props.data)
 
-    const uploadData = await fetch(process.env.REACT_APP_GETPLACES, {
-      method: 'POST',
-      body: formData,
-    })
+    const uploadData = props.idPlace
+      ? fetch(process.env.REACT_APP_GETPLACES + props.idPlace, {
+          method: 'PUT',
+          body: formData,
+        })
+      : await fetch(process.env.REACT_APP_GETPLACES, {
+          method: 'POST',
+          body: formData,
+        })
 
-    uploadData
-      .json()
-      .then((res) => {
-        console.log(res)
-      })
-      .catch((err) => console.log(err))
+    props.idPlace
+      ? uploadData
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data)
+          })
+          .catch((err) => console.log(err))
+      : uploadData
+          .json()
+          .then((data) => {
+            console.log(data)
+          })
+          .catch((err) => console.log(err))
   }
 
   const tables =

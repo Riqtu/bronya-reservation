@@ -49,6 +49,11 @@ export const ReservationWrapper = styled.div`
 export const Logo = styled.img`
   margin: 30px;
   float: left;
+  @media screen and (max-width: 500px) {
+    width: 50%;
+    margin: 15px;
+    float: none;
+  }
 `
 export const Header = styled.header`
   position: relative;
@@ -61,6 +66,10 @@ export const CallBar = styled.div`
   left: 30px;
   text-transform: uppercase;
   font-size: 20pt;
+  @media screen and (max-width: 500px) {
+    left: 15px;
+    top: 150px;
+  }
 `
 export const BackFrameWrapper = styled.div`
   position: absolute;
@@ -83,6 +92,9 @@ export const BackFrame = styled.div`
     width: calc(600px / 1.5);
     height: calc(432px / 1.5);
     text-align: center;
+  }
+  @media screen and (max-width: 500px) {
+    top: ${(props) => (props.bottom ? '56%' : '-20%')};
   }
 `
 
@@ -121,6 +133,10 @@ const inputState = css`
   }
   &:active {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  }
+  @media screen and (max-width: 500px) {
+    margin-left: 15px;
+    top: -15px;
   }
 `
 

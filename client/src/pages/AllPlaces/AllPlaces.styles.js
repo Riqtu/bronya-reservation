@@ -26,6 +26,7 @@ export const AllPlacesWrapper = styled.div`
   a {
     color: black;
   }
+
   /* min-height: fit-content; */
 `
 

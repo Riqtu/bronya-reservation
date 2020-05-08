@@ -38,6 +38,11 @@ export const Header = styled.header`
 export const Logo = styled.img`
   margin: 30px;
   float: left;
+
+  @media screen and (max-width: 500px) {
+    width: 50%;
+    margin: 15px;
+  }
 `
 
 export const Link = styled.a`
@@ -53,6 +58,10 @@ export const Link = styled.a`
   &:hover {
     color: #83f0bc;
   }
+  @media screen and (max-width: 500px) {
+    font-size: 0.7rem;
+    top: 15px;
+  }
 `
 
 export const Text = styled.p`
@@ -62,6 +71,12 @@ export const Text = styled.p`
   margin-left: 30px;
   font-size: 1.4rem;
   z-index: 2;
+  @media screen and (max-width: 500px) {
+    font-size: 1rem;
+    width: 80%;
+    margin-top: 5%;
+    margin-left: 15px;
+  }
 `
 
 export const BackFrames = styled.img`
@@ -70,15 +85,22 @@ export const BackFrames = styled.img`
   min-width: 700px;
   left: 0;
   margin-top: -32%;
+
+  @media screen and (max-width: 500px) {
+    width: 50%;
+    margin-top: -50%;
+  }
 `
 
 export const All = styled.section`
   position: relative;
   margin-top: -5px;
+  padding-top: 60px;
   height: fit-content;
   width: 100%;
   min-height: 300px;
   background-color: #0f4c81;
+  background-image: ;
 `
 
 export const Partners = styled.h1`
@@ -89,4 +111,11 @@ export const Partners = styled.h1`
   padding-bottom: 0;
   font-size: 35pt;
   text-transform: uppercase;
+  text-align: center;
+  padding: 0;
+  margin-left: 0;
+  @media screen and (max-width: 500px) {
+    font-size: 20pt;
+    padding: 15px;
+  }
 `

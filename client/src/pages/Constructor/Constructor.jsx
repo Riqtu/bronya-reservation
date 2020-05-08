@@ -1,11 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { FrameConstructor, FormTableConstructor } from '../../components'
 import { ConstructorWrapper, PlaceLogo, Logo } from './Constructor.styles'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import bronyaLogo from './../../assets/logo.svg'
 
 const Constructor = () => {
+  let { idPlace } = useParams()
+
+  const [, setErrors] = useState(false)
+  const [, setIsFetching] = useState(true)
+
   const [id, setId] = useState(0)
   const [x, setX] = useState(18)
   const [y, setY] = useState(14)
@@ -24,29 +29,69 @@ const Constructor = () => {
   })
 
   const [data, setData] = useState({
-    description: 'TestDescription',
     table: [],
   })
   const table = {
     table: [{ id: id, x: x, y: y }],
   }
 
+  const handleFetch = useCallback(() => {
+    idPlace &&
+      fetch(process.env.REACT_APP_GETPLACES + idPlace)
+        .then((res) => res.json())
+        .then((data) => {
+          setIsFetching(false)
+          setName(data.data.name)
+          setDescription(data.data.description)
+          setAddress(data.data.address)
+          setColor({
+            color1: data.data.color.color1,
+            color2: data.data.color.color2,
+            color3: data.data.color.color3,
+          })
+          setImage({
+            preview: process.env.REACT_APP_UPLOADS + data.data.map,
+            rew: '',
+          })
+          setLogo({
+            preview: process.env.REACT_APP_UPLOADS + data.data.logo,
+            rew: '',
+          })
+          setData({ table: data.data.table })
+          setIsFetching(false)
+        })
+        .catch((err) => setErrors(err))
+  }, [idPlace])
+
+  useEffect(() => {
+    handleFetch()
+  }, [handleFetch])
+
   console.log(data)
   return (
     <ConstructorWrapper color={color}>
-      {JSON.stringify(data)}
-      {JSON.stringify(file.path)}
+      {JSON.stringify(x)}
+
       <Link to="/">
-        <Logo src={bronyaLogo}></Logo>
+        <Logo src={bronyaLogo} onClick={(e) => e.stopPropagation()}></Logo>
       </Link>
       <PlaceLogo logo={logo.preview}></PlaceLogo>
       <FrameConstructor
+        id="test"
         table={table}
         places={data}
         path={'http://192.168.1.124:4002/' + file.path}
         image={image.preview}
+        x={x}
+        setX={setX}
+        y={y}
+        setY={setY}
+        setData={setData}
+
+        // onmousedown={(event) => showCoords(event)}
       ></FrameConstructor>
       <FormTableConstructor
+        idPlace={idPlace}
         setColor={setColor}
         color={color}
         table={table}

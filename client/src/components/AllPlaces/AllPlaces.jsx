@@ -5,6 +5,8 @@ import {
   CardLogo,
   CardText,
   ButtonBar,
+  Address,
+  Description,
 } from './AllPlaces.styles'
 import { Link } from 'react-router-dom'
 import { Button } from '../../components'
@@ -42,7 +44,8 @@ const AllPlaces = (props) => {
             ></CardLogo>
             <CardText>
               <h1>{places.data[index].name}</h1>
-              <p>{places.data[index].description}</p>
+              <Description>{places.data[index].description}</Description>
+              <Address>{places.data[index].address}</Address>
               <ButtonBar>
                 <Button text="забронировать" state="allPlaces" />
               </ButtonBar>

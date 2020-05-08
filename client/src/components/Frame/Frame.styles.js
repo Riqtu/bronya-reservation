@@ -9,10 +9,12 @@ export const FrameWrapper = styled.div`
   top: 20%;
   /* transform: rotateX(60deg) rotateY(0deg) rotateZ(-45deg); */
   @media screen and (max-width: 500px) {
-    left: calc(50% - ((600px / 1.5) / 2));
-    width: calc(600px / 1.5);
-    height: calc(432px / 1.5);
+    left: calc(50% - ((600px / 1.6) / 2));
+    width: calc(600px / 1.6);
+    height: calc(432px / 1.6);
     text-align: center;
+    top: 35%;
+    overflow: hidden;
   }
   z-index: 0;
 `
@@ -77,6 +79,11 @@ export const TableTime = styled.div`
   opacity: ${(props) => (props.active && props.i === props.index ? '1' : '0')};
   transition: 0.3s;
   padding: 10px;
+
+  @media screen and (max-width: 500px) {
+    left: calc(50% - 120px);
+    top: 10px;
+  }
 `
 export const InfoBar = styled.div`
   position: relative;
@@ -119,4 +126,24 @@ export const Time = styled.button`
   &:disabled {
     background-color: ${wall};
   }
+  animation: ${(props) => (props.active ? '0.7s start ease forwards' : '')};
+  @keyframes start {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+`
+
+export const Loader = styled.div`
+  position: relative;
+  width: 100%;
+  text-align: center;
+  background-image: url('${(props) => props.wall}');
+  height: 200px; 
+  background-position: center;
+  background-repeat: no-repeat;
+
 `

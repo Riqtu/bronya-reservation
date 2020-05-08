@@ -6,10 +6,10 @@ import { Place } from './models'
 const router = new Router({ prefix: '/places' })
 
 router.post('/', placesController.create)
-router.put('/:id', checkUser(), placesController.update)
+router.put('/:id', placesController.update)
 // router.put('/addGuest/:id', placesController.addGuest)
 
-router.delete('/:id', checkUser(), placesController.delete)
+router.delete('/:id', placesController.delete)
 
 router.get('/', placesController.getPlace)
 router.get('/:id', placesController.getPlaceByID)

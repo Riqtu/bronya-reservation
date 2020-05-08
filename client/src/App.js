@@ -10,6 +10,9 @@ function App() {
           <Route exact path="/">
             <MainPage></MainPage>
           </Route>
+          <Route path="/constructor/:idPlace">
+            <Constructor></Constructor>
+          </Route>
           <Route path="/constructor">
             <Constructor></Constructor>
           </Route>

@@ -52,7 +52,11 @@ const Reservation = (props) => {
         </Link>
         <Input
           type="date"
-          value={dateElement}
+          value={
+            format(Date.now(), 'yyyy-MM-dd') <= dateElement
+              ? dateElement
+              : format(Date.now(), 'yyyy-MM-dd')
+          }
           min={format(Date.now(), 'yyyy-MM-dd')}
           onChange={(e) => setDateElement(e.target.value)}
         ></Input>

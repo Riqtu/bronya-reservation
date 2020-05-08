@@ -14,6 +14,7 @@ export default {
     const newBody = JSON.parse(ctx.request.body.body)
     newBody.map = fileNameMap[2]
     newBody.logo = fileNameLogo[2]
+
     const placeData = {
       ...pick(newBody, Place.createFields),
     }
@@ -38,7 +39,19 @@ export default {
       ctx.throw(404, 'Missing place')
     }
 
-    const newData = pick(body, Place.createFields)
+    const newBody = JSON.parse(ctx.request.body.body)
+
+    const fileNameMap = ctx.request.files.image
+      ? ctx.request.files.image.path.split('/')[2]
+      : newBody.map
+    const fileNameLogo = ctx.request.files.logo
+      ? ctx.request.files.logo.path.split('/')[2]
+      : newBody.logo
+
+    newBody.map = fileNameMap
+    newBody.logo = fileNameLogo
+
+    const newData = pick(newBody, Place.createFields)
 
     const updatedPlace = await PlaceService.updatePlace(newData, place)
 

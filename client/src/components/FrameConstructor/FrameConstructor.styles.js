@@ -48,10 +48,6 @@ export const Table = styled.img`
   position: absolute;
   left: ${(props) => props.x};
   top: ${(props) => props.y};
-  transition: 0.3s;
+  /* transition: 0.3s; */
   cursor: pointer;
-  &:hover {
-    top: calc(${(props) => props.y} - 10px);
-    transform: scale(1.1);
-  }
 `

@@ -18,7 +18,7 @@ import io from 'socket.io-client'
 const Frame = (props) => {
   const [active, setActive] = useState({ i: 0, active: false })
   const [data, setData] = useState({})
-  const [hasError, setErrors] = useState(false)
+  const [, setErrors] = useState(false)
   const [isFetching, setIsFetching] = useState(true)
   const [tableId, setTableId] = useState('')
 
@@ -123,6 +123,7 @@ const Frame = (props) => {
           </Time>
         )
       }
+      return null
     })
 
     return retrurnArr

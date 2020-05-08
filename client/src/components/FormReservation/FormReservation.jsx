@@ -10,6 +10,7 @@ import {
   Upload,
   UploadLogo,
   UploadText,
+  NameInput,
 } from './FormReservation.styles'
 import InputMask from 'react-input-mask'
 import { format } from 'date-fns'
@@ -28,6 +29,7 @@ const FormReservation = (props) => {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [isValidPhone, setIsValidPhone] = useState(true)
+  const [isValidName, setIsValidName] = useState(true)
   const [isUpload, setIsUpload] = useState(false)
 
   const handleUpload = async (e) => {
@@ -41,24 +43,32 @@ const FormReservation = (props) => {
 
     console.log(data)
 
-    const uploadData = await fetch(process.env.REACT_APP_ADDGUEST, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-
-    uploadData
-      .json()
-      .then((res) => {
-        console.log(res)
+    if (name !== '' && phone !== '') {
+      const uploadData = await fetch(process.env.REACT_APP_ADDGUEST, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       })
-      .catch((err) => console.log(err))
 
-    props.handleFetch()
+      uploadData
+        .json()
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => console.log(err))
 
-    setIsUpload(true)
+      props.handleFetch()
+      setIsUpload(true)
+    } else if (name === '' || phone === '') {
+      if (name === '') {
+        setIsValidName(false)
+      }
+      if (phone === '') {
+        setIsValidPhone(false)
+      }
+    }
   }
 
   return (
@@ -70,12 +80,16 @@ const FormReservation = (props) => {
       )}
       <InputLine>
         <Label back={namePick} />
-        <Input
+        <NameInput
           type="text"
           placeholder="Имя"
           value={name}
-          onChange={(e) => setName(e.target.value)}
-        ></Input>
+          isValidName={isValidName}
+          onChange={(e) => {
+            setName(e.target.value)
+            setIsValidName(true)
+          }}
+        ></NameInput>
       </InputLine>
       <InputLine>
         <Label back={phonePick} />

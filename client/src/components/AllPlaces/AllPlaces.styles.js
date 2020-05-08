@@ -4,10 +4,19 @@ export const AllPlacesWrapper = styled.div`
   /* position: relative; */
   margin-top: -20px;
   background-color: #0f4c81;
-  width: 100%;
+  width: 80%;
+  margin-left: 10%;
   z-index: 1000;
   a {
     color: black;
+  }
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  @media screen and (max-width: 500px) {
+    display: grid;
+    justify-content: center;
+    margin-left: 0;
   }
   /* min-height: fit-content; */
 `
@@ -15,10 +24,10 @@ export const AllPlacesWrapper = styled.div`
 export const Card = styled.div`
   position: relative;
   width: 300px;
-  height: 90px;
+  height: 100px;
   background-color: white;
   margin-top: 15px;
-  margin-left: 30px;
+  margin-left: 5%;
   border-radius: 15px;
   padding: 20px;
   float: left;
@@ -33,6 +42,9 @@ export const Card = styled.div`
   }
   &:active {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  }
+  @media screen and (max-width: 500px) {
+    margin-left: 0px;
   }
 `
 export const CardLogo = styled.div`
@@ -57,10 +69,16 @@ export const CardText = styled.div`
     text-transform: uppercase;
     font-size: 13pt;
   }
-  p {
-    margin: 0;
-    font-size: 10pt;
-  }
+`
+export const Description = styled.p`
+  margin: 0;
+  font-size: 9pt;
+  margin-top: 5px;
+`
+export const Address = styled.p`
+  margin: 0;
+  margin-top: 5px;
+  font-size: 7pt;
 `
 
 export const ButtonBar = styled.div`

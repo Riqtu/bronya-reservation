@@ -26,10 +26,12 @@ export const PlaceLogo = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   left: 25%;
+  top: 20px;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
   border-radius: 10px;
 `
 export const Logo = styled.img`
   margin: 30px;
   float: left;
+  z-index: 100;
 `

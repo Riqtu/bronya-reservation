@@ -15,6 +15,9 @@ export const FormReservationWrapper = styled.div`
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
 `
 
 export const Logo = styled.div`
@@ -75,11 +78,15 @@ const inputState = css`
   }
 `
 const notValid = css`
-  background-color: #d84353;
+  background-color: #ffaab3;
   opacity: 0.5;
 `
 export const PhoneInput = styled.input((props) => {
   return props.isValidPhone ? inputState : [inputState, notValid]
+})
+
+export const NameInput = styled.input((props) => {
+  return props.isValidName ? inputState : [inputState, notValid]
 })
 
 export const Input = styled.input((props) => {

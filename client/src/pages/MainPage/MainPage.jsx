@@ -9,6 +9,11 @@ import {
   MainSection,
   All,
   Partners,
+  WhatBlock,
+  WhatBlockImage,
+  WhatBlockH1,
+  WhatBlockP,
+  Footer,
 } from './MainPage.styles'
 
 import { Button, AllPlaces } from '../../components'
@@ -36,7 +41,18 @@ const MainPage = () => (
     <All>
       <Partners>Партнеры</Partners>
       <AllPlaces></AllPlaces>
+      <WhatBlock>
+        <WhatBlockH1>Защищенный, удобный способ бронирования</WhatBlockH1>
+        <WhatBlockP>
+          Данные используются только для подтверждения бронирования. Используя
+          систему “Броня”, вы можете быть уверены, что ваше места займете только
+          вы
+        </WhatBlockP>
+        <WhatBlockImage></WhatBlockImage>
+      </WhatBlock>
     </All>
+    {/* <FooterLayer src={footerLayer} alt=""></FooterLayer> */}
+    <Footer></Footer>
   </MainPageWrapper>
 )
 

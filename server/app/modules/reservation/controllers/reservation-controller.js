@@ -1,7 +1,6 @@
 import pick from 'lodash/pick'
 import { Reservation } from '../models'
 import { ReservationService } from '../services'
-import { getYear, format } from 'date-fns'
 
 export default {
   async create(ctx) {
@@ -54,6 +53,7 @@ export default {
     }
 
     await reservation.remove()
+    ctx.req.io.emit('message', { action: 'update', id: reservation.tableId })
 
     ctx.body = { data: { id: _id } }
   },
@@ -67,6 +67,13 @@ export default {
   },
   async get(ctx) {
     const reservation = await Reservation.find({})
+    ctx.body = { data: reservation }
+  },
+  async getTable(ctx) {
+    const date = new Date()
+    date.setDate(date.getDate() - 1)
+
+    const reservation = await Reservation.findAll({})
     ctx.body = { data: reservation }
   },
   async getByTableId(ctx) {
@@ -86,7 +93,7 @@ export default {
           },
         },
       ],
-    })
+    }).sort([['date']])
     ctx.body = { data: reservation }
   },
 }

@@ -75,6 +75,10 @@ const Frame = (props) => {
           data[index] &&
             format(new Date(data[index].date), "yyyy-MM-dd'T'HH:mm")
         )
+        const findNext = arr.indexOf(
+          data[index + 1] &&
+            format(new Date(data[index + 1].date), "yyyy-MM-dd'T'HH:mm")
+        )
         if (find !== -1) {
           arr[find] = {
             date:
@@ -82,15 +86,16 @@ const Frame = (props) => {
               format(new Date(data[index].date), "yyyy-MM-dd'T'HH:mm"),
             res: true,
           }
-          arr[find + 1] = {
-            date:
-              data[index] &&
-              format(
-                addMinutes(new Date(data[index].date), 30),
-                "yyyy-MM-dd'T'HH:mm"
-              ),
-            res: true,
-          }
+          if (find + 1 !== findNext)
+            arr[find + 1] = {
+              date:
+                data[index] &&
+                format(
+                  addMinutes(new Date(data[index].date), 30),
+                  "yyyy-MM-dd'T'HH:mm"
+                ),
+              res: true,
+            }
         }
       }
     }

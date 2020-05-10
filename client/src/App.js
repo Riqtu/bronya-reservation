@@ -1,5 +1,5 @@
 import React from 'react'
-import { MainPage, Reservation, Constructor, AllPlaces } from './pages'
+import { MainPage, Reservation, Constructor, Restorator } from './pages'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 function App() {
   return (
@@ -16,15 +16,11 @@ function App() {
           <Route path="/constructor">
             <Constructor></Constructor>
           </Route>
-          <Route exact path="/reservation">
-            <AllPlaces></AllPlaces>
-          </Route>
-          <Route
-            exact
-            path="/reservation/:id"
-            // component={(props) => <Reservation {...props} />}
-          >
+          <Route exact path="/reservation/:id">
             <Reservation></Reservation>
+          </Route>
+          <Route path="/restorator/:id">
+            <Restorator></Restorator>
           </Route>
         </Switch>
       </Router>

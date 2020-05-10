@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 export const AllPlacesWrapper = styled.div`
   /* position: relative; */
   margin-top: -20px;
-  background-color: #0f4c81;
+  /* background-color: #0f4c81; */
   width: 80%;
   margin-left: 10%;
   z-index: 1000;
@@ -12,7 +12,7 @@ export const AllPlacesWrapper = styled.div`
   }
   display: grid;
   justify-content: center;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, 370px);
   @media screen and (max-width: 500px) {
     display: grid;
     justify-content: center;
@@ -27,6 +27,8 @@ export const Card = styled.div`
   height: 100px;
   background-color: white;
   margin-top: 15px;
+  margin-bottom: 15px;
+
   margin-left: 5%;
   border-radius: 15px;
   padding: 20px;

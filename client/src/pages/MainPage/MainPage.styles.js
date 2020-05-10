@@ -1,6 +1,9 @@
 import styled from '@emotion/styled'
 import { flash } from './../../animations.styles'
 
+import allBack from './../../assets/main-back-partners.svg'
+import shield from './../../assets/shield.svg'
+
 export const MainPageWrapper = styled.section`
   background-image: linear-gradient(
     -50deg,
@@ -100,7 +103,52 @@ export const All = styled.section`
   width: 100%;
   min-height: 300px;
   background-color: #0f4c81;
-  background-image: ;
+
+  width: 100%;
+  background-image: url(${allBack});
+  background-size: 100%;
+  background-position-y: 5%;
+  background-repeat: no-repeat;
+  padding-bottom: calc(200px);
+`
+
+export const WhatBlock = styled.section`
+  position: relative;
+  /* margin: 50px; */
+  margin-top: 200px;
+  left: calc(50% - 300px);
+  height: fit-content;
+  width: 600px;
+  min-height: 200px;
+`
+export const WhatBlockH1 = styled.h1`
+  width: 60%;
+  font-size: 17pt;
+  text-transform: uppercase;
+  color: white;
+  float: left;
+  padding-top: 0;
+  margin: 0;
+`
+export const WhatBlockP = styled.p`
+  width: 60%;
+  font-size: 12pt;
+  color: white;
+  float: left;
+  padding-top: 10px;
+  margin-top: 0;
+`
+
+export const WhatBlockImage = styled.div`
+  width: 40%;
+  height: 100%;
+  position: absolute;
+  left: auto;
+  right: 0;
+  background-image: url(${shield});
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 `
 
 export const Partners = styled.h1`
@@ -118,4 +166,23 @@ export const Partners = styled.h1`
     font-size: 20pt;
     padding: 15px;
   }
+`
+export const FooterLayer = styled.img`
+  position: relative;
+  width: 100%;
+  min-width: 700px;
+  left: 0;
+  background-color: transparent;
+  margin-top: -43%;
+
+  @media screen and (max-width: 500px) {
+    width: 50%;
+    margin-top: -50%;
+  }
+`
+export const Footer = styled.footer`
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background-color: #0b192a;
 `

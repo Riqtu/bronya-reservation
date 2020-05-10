@@ -9,6 +9,7 @@ router.put('/:id', reservationController.update)
 router.delete('/:id', reservationController.delete)
 router.get('/', reservationController.get)
 router.get('/table/:table', reservationController.getByTableId)
+router.get('/table', reservationController.getTable)
 router.get('/:id', reservationController.getByID)
 
 export { Reservation }

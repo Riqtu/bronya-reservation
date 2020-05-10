@@ -34,9 +34,6 @@ const FormTableConstructor = (props) => {
         break
     }
   }
-  const mouseMover = (e) => {
-    props.setX(e.target.clientX)
-  }
 
   useEffect(() => {
     window.addEventListener('keydown', keyPressHandler)

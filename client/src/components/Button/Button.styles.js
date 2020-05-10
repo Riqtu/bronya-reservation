@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { css } from '@emotion/core'
-import { green, darkGreen } from './../../constants'
+import { green, darkGreen, red } from './../../constants'
 const start = css`
   background-color: ${green};
   border: none;
@@ -71,6 +71,41 @@ const allPlaces = css`
     background-color: ${darkGreen};
   }
 `
+const restoratorAdd = css`
+  position: relative;
+  text-align: center;
+  height: 40px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: ${green};
+  border: none;
+  transition: 0.3s;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  &:hover {
+    background-color: ${darkGreen};
+  }
+`
+const restoratorDelete = css`
+  position: relative;
+  text-align: center;
+  height: 40px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: ${red};
+  border: none;
+  transition: 0.3s;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  &:hover {
+    background-color: ${red + 'DD'};
+  }
+`
+
 const defaultState = css``
 
 const stateForAll = css`
@@ -105,6 +140,10 @@ export const ButtonWrapper = styled.button((props) => {
       return submit
     case 'allPlaces':
       return allPlaces
+    case 'restoratorAdd':
+      return restoratorAdd
+    case 'restoratorDelete':
+      return restoratorDelete
     default:
       return defaultState
   }

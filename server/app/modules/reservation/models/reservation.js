@@ -11,7 +11,11 @@ const Reservation = new Schema({
     trim: true,
   },
   date: {
-    type: Date,
+    type: [Date],
+  },
+  placeId: {
+    type: String,
+    trim: true,
   },
   tableId: {
     type: String,
@@ -19,6 +23,12 @@ const Reservation = new Schema({
   },
 })
 
-Reservation.statics.createFields = ['guestName', 'phone', 'date', 'tableId']
+Reservation.statics.createFields = [
+  'guestName',
+  'phone',
+  'date',
+  'tableId',
+  'placeId',
+]
 
 export default mongoose.model('reservation', Reservation)

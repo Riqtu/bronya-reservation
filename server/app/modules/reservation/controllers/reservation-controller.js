@@ -1,6 +1,7 @@
 import pick from 'lodash/pick'
 import { Reservation } from '../models'
 import { ReservationService } from '../services'
+import { addHours } from 'date-fns'
 
 export default {
   async create(ctx) {
@@ -75,6 +76,33 @@ export default {
 
     const reservation = await Reservation.findAll({})
     ctx.body = { data: reservation }
+  },
+  async getDate(ctx) {
+    const {
+      params: { date: date1, table: table },
+    } = ctx
+
+    const reservation = await Reservation.findOne({
+      $and: [{ tableId: table }, { date: date1 }],
+    })
+
+    ctx.body = { data: reservation }
+  },
+  async getOnlyDate(ctx) {
+    const {
+      params: { date: date1, place: placeId },
+    } = ctx
+
+    const reservation = await Reservation.find({
+      $and: [{ placeId: placeId }, { date: date1 }],
+    })
+
+    let arr = []
+    reservation.map((el, index) => {
+      arr.push(el.tableId)
+    })
+
+    ctx.body = { data: arr }
   },
   async getByTableId(ctx) {
     const {

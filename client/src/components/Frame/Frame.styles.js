@@ -52,6 +52,7 @@ export const Table = styled.img`
   left: ${(props) => props.x};
   top: ${(props) => props.y};
   transition: 0.3s;
+  opacity: ${(props) => (props.dis ? '0.5' : '1')};
   cursor: pointer;
   &:hover {
     top: calc(${(props) => props.y} - 10px);

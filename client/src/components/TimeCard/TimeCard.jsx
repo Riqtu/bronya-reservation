@@ -58,18 +58,18 @@ const TimeCard = (props) => {
       for (let index = 0; index < data.length; index++) {
         const find = arr.indexOf(
           data[index] &&
-            format(new Date(data[index].date), "yyyy-MM-dd'T'HH:mm")
+            format(new Date(data[index].date[0]), "yyyy-MM-dd'T'HH:mm")
         )
         const findNext = arr.indexOf(
           data[index + 1] &&
-            format(new Date(data[index + 1].date), "yyyy-MM-dd'T'HH:mm")
+            format(new Date(data[index + 1].date[0]), "yyyy-MM-dd'T'HH:mm")
         )
         console.log(find, findNext)
         if (find !== -1) {
           arr[find] = {
             date:
               data[index] &&
-              format(new Date(data[index].date), "yyyy-MM-dd'T'HH:mm"),
+              format(new Date(data[index].date[0]), "yyyy-MM-dd'T'HH:mm"),
             res: true,
             name: data[index].guestName,
             id: data[index]._id,
@@ -80,7 +80,7 @@ const TimeCard = (props) => {
               date:
                 data[index] &&
                 format(
-                  addMinutes(new Date(data[index].date), 30),
+                  addMinutes(new Date(data[index].date[0]), 30),
                   "yyyy-MM-dd'T'HH:mm"
                 ),
               res: true,

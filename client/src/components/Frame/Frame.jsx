@@ -9,7 +9,14 @@ import {
   Line,
   Loader,
 } from './Frame.styles'
-import { getYear, getMonth, getDate, format, addMinutes } from 'date-fns'
+import {
+  getYear,
+  getMonth,
+  getDate,
+  format,
+  addMinutes,
+  addHours,
+} from 'date-fns'
 import 'react-datepicker/dist/react-datepicker.css'
 import table from './../../assets/table.svg'
 import loader from './../../assets/loader.svg'
@@ -21,6 +28,7 @@ const Frame = (props) => {
   const [, setErrors] = useState(false)
   const [isFetching, setIsFetching] = useState(true)
   const [tableId, setTableId] = useState('')
+  const [disabledTable, setDisabledTable] = useState([])
 
   const handleFetch = useCallback((id) => {
     fetch(process.env.REACT_APP_GETRESERVATIONS + 'table/' + id)
@@ -28,10 +36,27 @@ const Frame = (props) => {
       .then((data) => {
         setData(data.data)
         setIsFetching(false)
-        console.log(data.data)
       })
       .catch((err) => setErrors(err))
   }, [])
+
+  const handleFetchTables = useCallback(() => {
+    setDisabledTable([])
+    fetch(
+      process.env.REACT_APP_GETRESERVATIONS +
+        'place/' +
+        props.id +
+        '/' +
+        format(addHours(props.dateElement, -3), "yyyy-MM-dd'T'HH:mm:00.000'Z'")
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.data) {
+          setDisabledTable(data.data)
+        }
+      })
+      .catch((err) => setErrors(err))
+  }, [props.id, props.dateElement])
 
   const handleSocket = useCallback(() => {
     const socket = io.connect(process.env.REACT_APP_ENDPOINT)
@@ -41,16 +66,21 @@ const Frame = (props) => {
       if (data.action === 'update' && tableId === data.id) {
         console.log(tableId)
         handleFetch(data.id)
+        handleFetchTables()
+
         socket.emit('message', 'Update place')
       }
     })
     socket.emit('message', 'Hello Server')
-  }, [handleFetch, tableId])
+  }, [handleFetch, tableId, handleFetchTables])
 
   useEffect(() => {
-    // handleFetch()
     handleSocket()
   }, [handleFetch, handleSocket])
+
+  useEffect(() => {
+    handleFetchTables()
+  }, [handleFetchTables])
 
   const generate = (start, end, tableIndex, tableId) => {
     let arr = []
@@ -73,17 +103,17 @@ const Frame = (props) => {
       for (let index = 0; index < data.length; index++) {
         const find = arr.indexOf(
           data[index] &&
-            format(new Date(data[index].date), "yyyy-MM-dd'T'HH:mm")
+            format(new Date(data[index].date[0]), "yyyy-MM-dd'T'HH:mm")
         )
         const findNext = arr.indexOf(
           data[index + 1] &&
-            format(new Date(data[index + 1].date), "yyyy-MM-dd'T'HH:mm")
+            format(new Date(data[index + 1].date[0]), "yyyy-MM-dd'T'HH:mm")
         )
         if (find !== -1) {
           arr[find] = {
             date:
               data[index] &&
-              format(new Date(data[index].date), "yyyy-MM-dd'T'HH:mm"),
+              format(new Date(data[index].date[0]), "yyyy-MM-dd'T'HH:mm"),
             res: true,
           }
           if (find + 1 !== findNext)
@@ -91,7 +121,7 @@ const Frame = (props) => {
               date:
                 data[index] &&
                 format(
-                  addMinutes(new Date(data[index].date), 30),
+                  addMinutes(new Date(data[index].date[0]), 30),
                   "yyyy-MM-dd'T'HH:mm"
                 ),
               res: true,
@@ -99,8 +129,6 @@ const Frame = (props) => {
         }
       }
     }
-
-    console.log(props.date)
 
     let retrurnArr = []
 
@@ -139,6 +167,9 @@ const Frame = (props) => {
     props.places &&
     props.places.table &&
     props.places.table.map((el, index) => {
+      const find = disabledTable.indexOf(el._id)
+      let opacity = true
+      if (find === -1) opacity = false
       return (
         <React.Fragment key={index}>
           <TableTime
@@ -158,18 +189,13 @@ const Frame = (props) => {
             </InfoBar>
             <Line></Line>
             {!isFetching && data ? (
-              generate(
-                10,
-                22,
-                index,
-                props.places.table[index]._id,
-                props.places.table[index].guest
-              )
+              generate(10, 22, index, props.places.table[index]._id)
             ) : (
               <Loader wall={loader} />
             )}
           </TableTime>
           <Table
+            dis={opacity}
             src={table}
             y={props.places.table[index].y + '%'}
             x={props.places.table[index].x + '%'}

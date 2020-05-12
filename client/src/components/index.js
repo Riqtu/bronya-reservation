@@ -15,5 +15,5 @@ export {
   FormTableConstructor,
   FrameConstructor,
   Frame,
-  Button
+  Button,
 }

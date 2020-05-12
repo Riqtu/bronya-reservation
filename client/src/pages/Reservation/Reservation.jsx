@@ -11,24 +11,29 @@ import {
 } from './Reservation.styles'
 import { Frame, FormReservation } from '../../components'
 import { useParams, Link } from 'react-router-dom'
-import { format } from 'date-fns'
+import { format, setHours, setMinutes } from 'date-fns'
+import { ru } from 'date-fns/locale'
+import DatePicker, { registerLocale } from 'react-datepicker'
+
+import 'react-datepicker/dist/react-datepicker.css'
 
 import logo from './../../assets/logo.svg'
-
 const Reservation = (props) => {
+  registerLocale('ru', ru)
   let { id } = useParams()
 
   const [hasError, setErrors] = useState(false)
   const [isFetching, setIsFetching] = useState(true)
   const [places, setPlaces] = useState({})
 
-  const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd'T'HH:mm"))
-  const [dateElement, setDateElement] = useState(
-    format(new Date(), 'yyyy-MM-dd')
-  )
+  const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd'T'hh:mm"))
 
   const [table, setTable] = useState('')
   const [tableId, setTableId] = useState('')
+
+  const [startDate, setStartDate] = useState(
+    setHours(setMinutes(new Date(), 0), 10)
+  )
 
   const handleFetch = useCallback(() => {
     fetch(process.env.REACT_APP_GETPLACES + id)
@@ -43,14 +48,13 @@ const Reservation = (props) => {
   useEffect(() => {
     handleFetch()
   }, [handleFetch])
-
   return (
     <ReservationWrapper color={places.data && places.data.color}>
       <Header>
         <Link to="/">
           <Logo src={logo}></Logo>
         </Link>
-        <Input
+        {/* <Input
           type="date"
           value={
             format(Date.now(), 'yyyy-MM-dd') <= dateElement
@@ -59,7 +63,20 @@ const Reservation = (props) => {
           }
           min={format(Date.now(), 'yyyy-MM-dd')}
           onChange={(e) => setDateElement(e.target.value)}
-        ></Input>
+        ></Input> */}
+        <DatePicker
+          selected={startDate}
+          onChange={(date) => {
+            setStartDate(date)
+          }}
+          showTimeSelect
+          timeIntervals={30}
+          locale="ru"
+          minTime={setHours(setMinutes(new Date(), 0), 10)}
+          maxTime={setHours(setMinutes(new Date(), 30), 21)}
+          dateFormat="dd.MM.yyyy  HH:mm"
+          customInput={<Input />}
+        />
       </Header>
       <CallBar>Выберите стол</CallBar>
       <BackFrameWrapper>
@@ -81,7 +98,7 @@ const Reservation = (props) => {
         id={id}
       />
       <Frame
-        dateElement={dateElement}
+        dateElement={startDate}
         places={places.data}
         isFetching={isFetching}
         error={hasError}
@@ -89,6 +106,7 @@ const Reservation = (props) => {
         setDate={setDate}
         setTable={setTable}
         setTableId={setTableId}
+        id={id}
       />
     </ReservationWrapper>
   )

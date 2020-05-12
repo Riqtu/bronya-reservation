@@ -13,7 +13,7 @@ import {
   NameInput,
 } from './FormReservation.styles'
 import InputMask from 'react-input-mask'
-import { format } from 'date-fns'
+import { format, addMinutes } from 'date-fns'
 
 import namePick from './../../assets/form_name.svg'
 import phonePick from './../../assets/form_phone.svg'
@@ -37,8 +37,9 @@ const FormReservation = (props) => {
     const data = {
       guestName: name,
       phone: phone,
-      date: props.date,
+      date: [props.date, addMinutes(new Date(props.date), 30)],
       tableId: props.tableId,
+      placeId: props.id,
     }
 
     console.log(data)

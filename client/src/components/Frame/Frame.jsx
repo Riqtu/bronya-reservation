@@ -8,6 +8,7 @@ import {
   InfoBar,
   Line,
   Loader,
+  Seats,
 } from './Frame.styles'
 import {
   getYear,
@@ -186,10 +187,16 @@ const Frame = (props) => {
               }}
             >
               СТОЛ {index}
+              <Seats>МЕСТ {props.places.table[index].seats}</Seats>
             </InfoBar>
             <Line></Line>
             {!isFetching && data ? (
-              generate(10, 22, index, props.places.table[index]._id)
+              generate(
+                props.places.start,
+                props.places.end,
+                index,
+                props.places.table[index]._id
+              )
             ) : (
               <Loader wall={loader} />
             )}

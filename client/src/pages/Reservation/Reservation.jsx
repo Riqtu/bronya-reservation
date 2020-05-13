@@ -40,6 +40,7 @@ const Reservation = (props) => {
       .then((res) => res.json())
       .then((data) => {
         setPlaces(data)
+        setStartDate(setHours(setMinutes(new Date(), 0), data.data.start))
         setIsFetching(false)
       })
       .catch((err) => setErrors(err))
@@ -48,6 +49,7 @@ const Reservation = (props) => {
   useEffect(() => {
     handleFetch()
   }, [handleFetch])
+
   return (
     <ReservationWrapper color={places.data && places.data.color}>
       <Header>
@@ -72,8 +74,14 @@ const Reservation = (props) => {
           showTimeSelect
           timeIntervals={30}
           locale="ru"
-          minTime={setHours(setMinutes(new Date(), 0), 10)}
-          maxTime={setHours(setMinutes(new Date(), 30), 21)}
+          minTime={setHours(
+            setMinutes(new Date(), 0),
+            places.data ? places.data.start : 10
+          )}
+          maxTime={setHours(
+            setMinutes(new Date(), 30),
+            places.data ? places.data.end - 1 : 22
+          )}
           dateFormat="dd.MM.yyyy  HH:mm"
           customInput={<Input />}
         />

@@ -96,6 +96,13 @@ export const InfoBar = styled.div`
   text-align: left;
   color: black;
 `
+export const Seats = styled.div`
+  position: absolute;
+  left: auto;
+  right: 0;
+  top: 0;
+`
+
 export const Line = styled.div`
   position: relative;
   width: calc(100% - 10px);
@@ -119,12 +126,20 @@ export const Time = styled.button`
   cursor: pointer;
   &:hover {
     background-color: ${darkGreen};
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 5px rgba(0, 0, 0, 0.23);
   }
   &:focus {
     outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 5px rgba(0, 0, 0, 0.23);
+
     background-color: ${darkGreen};
   }
+  &:active {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  }
   &:disabled {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 5px rgba(0, 0, 0, 0.23);
+
     background-color: ${wall};
   }
   animation: ${(props) => (props.active ? '0.7s start ease forwards' : '')};

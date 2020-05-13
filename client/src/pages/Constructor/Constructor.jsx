@@ -17,6 +17,8 @@ const Constructor = () => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [address, setAddress] = useState('')
+  const [start, setStart] = useState(10)
+  const [end, setEnd] = useState(22)
 
   const [file, setFile] = useState({})
   const [image, setImage] = useState({ preview: '', raw: '' })
@@ -32,7 +34,7 @@ const Constructor = () => {
     table: [],
   })
   const table = {
-    table: [{ id: id, x: x, y: y }],
+    table: [{ seats: id, x: x, y: y }],
   }
 
   const handleFetch = useCallback(() => {
@@ -44,6 +46,8 @@ const Constructor = () => {
           setName(data.data.name)
           setDescription(data.data.description)
           setAddress(data.data.address)
+          setStart(data.data.start)
+          setEnd(data.data.end)
           setColor({
             color1: data.data.color.color1,
             color2: data.data.color.color2,
@@ -67,7 +71,6 @@ const Constructor = () => {
     handleFetch()
   }, [handleFetch])
 
-  console.log(data)
   return (
     <ConstructorWrapper color={color}>
       {JSON.stringify(x)}
@@ -115,6 +118,10 @@ const Constructor = () => {
         setDescription={setDescription}
         address={address}
         setAddress={setAddress}
+        setStart={setStart}
+        start={start}
+        setEnd={setEnd}
+        end={end}
       ></FormTableConstructor>
     </ConstructorWrapper>
   )

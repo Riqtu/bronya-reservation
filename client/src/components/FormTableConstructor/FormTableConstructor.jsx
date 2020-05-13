@@ -46,24 +46,24 @@ const FormTableConstructor = (props) => {
   const pushTable = () => {
     props.setData((prev) =>
       Object.assign({}, prev, {
-        table: [...prev.table, { id: props.id, x: props.x, y: props.y }],
+        table: [...prev.table, { seats: props.id, x: props.x, y: props.y }],
       })
     )
   }
 
   const updateTableID = (e, index, x, y) => {
     const newData = props.data.table
-    newData.splice(index, 1, { id: e.target.value, x: x, y: y })
+    newData.splice(index, 1, { seats: e.target.value, x: x, y: y })
     props.setData({ table: newData })
   }
   const updateTableX = (e, index, id, y) => {
     const newData = props.data.table
-    newData.splice(index, 1, { id: id, x: e.target.value, y: y })
+    newData.splice(index, 1, { seats: id, x: e.target.value, y: y })
     props.setData({ table: newData })
   }
   const updateTableY = (e, index, id, x) => {
     const newData = props.data.table
-    newData.splice(index, 1, { id: id, x: x, y: e.target.value })
+    newData.splice(index, 1, { seats: id, x: x, y: e.target.value })
     props.setData({ table: newData })
   }
 
@@ -94,6 +94,10 @@ const FormTableConstructor = (props) => {
     props.setData((props.data.address = props.address))
     props.setData((props.data.description = props.description))
     props.setData((props.data.color = props.color))
+
+    props.setData((props.data.start = props.start))
+    props.setData((props.data.end = props.end))
+
     props.setData(
       (props.data.logo = props.logo.preview.replace(
         process.env.REACT_APP_UPLOADS,
@@ -147,10 +151,10 @@ const FormTableConstructor = (props) => {
         <div key={index}>
           <PrevInputs>
             <label>
-              id
+              Мест
               <Input
                 type="text"
-                value={props.data.table[index].id}
+                value={props.data.table[index].seats}
                 onChange={(e) =>
                   updateTableID(
                     e,
@@ -202,7 +206,7 @@ const FormTableConstructor = (props) => {
     <FormConstructorWrapper>
       <ThisInputs>
         <label>
-          id
+          Мест
           <Input
             type="text"
             value={parseInt(props.id)}
@@ -243,6 +247,24 @@ const FormTableConstructor = (props) => {
             type="text"
             value={props.address}
             onChange={(e) => props.setAddress(e.target.value)}
+          />
+        </label>
+      </LargeInput>
+      <LargeInput>
+        <label>
+          Начало
+          <input
+            type="text"
+            value={props.start}
+            onChange={(e) => props.setStart(e.target.value)}
+          />
+        </label>
+        <label>
+          Конец
+          <input
+            type="text"
+            value={props.end}
+            onChange={(e) => props.setEnd(e.target.value)}
           />
         </label>
       </LargeInput>

@@ -21,10 +21,19 @@ const PlaceSchema = new Schema({
     type: String,
     trim: true,
   },
+  start: {
+    type: Number,
+    trim: true,
+  },
+  end: {
+    type: Number,
+    trim: true,
+  },
   table: [
     {
       x: Number,
       y: Number,
+      seats: Number,
       guest: [
         {
           guestName: String,
@@ -44,6 +53,8 @@ PlaceSchema.statics.createFields = [
   'name',
   'description',
   'address',
+  'start',
+  'end',
   'color',
   'logo',
   'table',

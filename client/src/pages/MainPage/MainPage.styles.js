@@ -48,7 +48,7 @@ export const Logo = styled.img`
   }
 `
 
-export const Link = styled.a`
+export const HeaderLink = styled.a`
   position: relative;
   text-transform: uppercase;
   text-decoration: none;

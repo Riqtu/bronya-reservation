@@ -2,7 +2,7 @@ import React from 'react'
 import {
   MainPageWrapper,
   Logo,
-  Link,
+  HeaderLink,
   Header,
   Text,
   BackFrames,
@@ -16,6 +16,8 @@ import {
   Footer,
 } from './MainPage.styles'
 
+import { Link } from 'react-router-dom'
+
 import { Button, AllPlaces } from '../../components'
 
 import logo from './../../assets/logo.svg'
@@ -25,17 +27,20 @@ const MainPage = () => (
   <MainPageWrapper>
     <Header>
       <Logo src={logo} alt=""></Logo>
-      <Link href="">О проекте</Link>
-      <Link href="">Цена</Link>
-      <Link href="">Контакты</Link>
+      <HeaderLink href="">О проекте</HeaderLink>
+      <HeaderLink href="">Цена</HeaderLink>
+      <HeaderLink href="">Контакты</HeaderLink>
     </Header>
     <MainSection>
       <Text>
         Хочешь забронировать стол в любимом месте, но не хочешь звонить? Ты
         хочешь выбрать стол и посмотреть где он находится? Тогда система
-        бронирования “Броня” отлично подойдет для тебя
+        бронирования “Броня” отлично подойдет для тебя. Найди любимое заведение
+        сейчас!
       </Text>
-      <Button state="start" text="Узнать больше" />
+      <Link to="/">
+        <Button state="start" text="Посмотреть" />
+      </Link>
       <BackFrames src={backFrames} alt="" />
     </MainSection>
     <All>

@@ -31,7 +31,7 @@ const FrameConstructor = (props) => {
   const pushTable = () => {
     props.setData((prev) =>
       Object.assign({}, prev, {
-        table: [...prev.table, { id: props.id, x: props.x, y: props.y }],
+        table: [...prev.table, { seats: props.id, x: props.x, y: props.y }],
       })
     )
   }

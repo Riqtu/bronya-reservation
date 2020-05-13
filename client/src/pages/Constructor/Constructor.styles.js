@@ -13,7 +13,6 @@ export const ConstructorWrapper = styled.div`
   );
   width: 100%;
   height: 100vh;
-  min-height: fit-content;
 `
 
 export const PlaceLogo = styled.div`

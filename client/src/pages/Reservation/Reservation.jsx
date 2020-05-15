@@ -14,11 +14,14 @@ import { useParams, Link } from 'react-router-dom'
 import { format, setHours, setMinutes } from 'date-fns'
 import { ru } from 'date-fns/locale'
 import DatePicker, { registerLocale } from 'react-datepicker'
-
+import { useObserver, useLocalStore } from 'mobx-react' // 6.x or mobx-react-lite@1.4.0
+import { useStores } from '../../hooks/useStores'
 import 'react-datepicker/dist/react-datepicker.css'
 
 import logo from './../../assets/logo.svg'
 const Reservation = (props) => {
+  const { themeStore } = useStores()
+
   registerLocale('ru', ru)
   let { id } = useParams()
 
@@ -56,16 +59,7 @@ const Reservation = (props) => {
         <Link to="/">
           <Logo src={logo}></Logo>
         </Link>
-        {/* <Input
-          type="date"
-          value={
-            format(Date.now(), 'yyyy-MM-dd') <= dateElement
-              ? dateElement
-              : format(Date.now(), 'yyyy-MM-dd')
-          }
-          min={format(Date.now(), 'yyyy-MM-dd')}
-          onChange={(e) => setDateElement(e.target.value)}
-        ></Input> */}
+        {themeStore.name}
         <DatePicker
           selected={startDate}
           onChange={(date) => {

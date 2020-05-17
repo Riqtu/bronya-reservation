@@ -55,6 +55,26 @@ const submit = css`
     background-color: ${darkGreen};
   }
 `
+const form = css`
+  background-color: ${green};
+  border: none;
+  color: white;
+  margin: 20px 20%;
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  transition: 0.14s;
+  font-size: 12pt;
+`
+const exit = css`
+  background-color: ${red};
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  margin-top: -5px;
+  border-radius: 10px;
+  transition: 0.14s;
+  font-size: 12pt;
+`
 
 const allPlaces = css`
   /* margin-bottom: 20px; */
@@ -144,6 +164,10 @@ export const ButtonWrapper = styled.button((props) => {
       return restoratorAdd
     case 'restoratorDelete':
       return restoratorDelete
+    case 'form':
+      return form
+    case 'exit':
+      return exit
     default:
       return defaultState
   }

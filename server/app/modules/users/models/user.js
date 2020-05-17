@@ -11,34 +11,33 @@ const UserSchema = new Schema(
       unique: 'User with email "VALUE" already exist',
       lowercase: true,
       required: 'Email is required',
-      trim: true
+      trim: true,
     },
     password: {
       type: String,
       required: 'Password is required',
-      trim: true
+      trim: true,
     },
-    firstName: {
+    name: {
       type: String,
       lowercase: true,
       required: 'First name is required',
-      trim: true
+      trim: true,
     },
-    lastName: {
+    role: {
       type: String,
       lowercase: true,
-      required: 'Last name is required',
-      trim: true
-    }
+      trim: true,
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 )
 
-UserSchema.statics.createFields = ['email', 'password', 'firstName', 'lastName']
+UserSchema.statics.createFields = ['email', 'password', 'name', 'role']
 
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function (next) {
   if (!this.isModified('password')) {
     return next()
   }
@@ -47,17 +46,17 @@ UserSchema.pre('save', function(next) {
   next()
 })
 
-UserSchema.methods.comparePasswords = function(password) {
+UserSchema.methods.comparePasswords = function (password) {
   return bcrypt.compareSync(password, this.password)
 }
 
-UserSchema.statics.findOneWithPublicFields = function(params, cb) {
+UserSchema.statics.findOneWithPublicFields = function (params, cb) {
   return this.findOne(params, cb).select({
     password: 0,
     _id: 0,
     __v: 0,
     createdAt: 0,
-    updatedAt: 0
+    updatedAt: 0,
   })
 }
 

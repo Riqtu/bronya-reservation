@@ -29,6 +29,6 @@ export default {
 
     const token = await jwtService.genToken({ email })
 
-    ctx.body = { data: token }
-  }
+    ctx.body = { data: user, token: token }
+  },
 }

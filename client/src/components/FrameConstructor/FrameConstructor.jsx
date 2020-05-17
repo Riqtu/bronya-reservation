@@ -17,7 +17,6 @@ const FrameConstructor = (props) => {
     var pixelsY = y + 30
     var screenWidthY = rect.height
     var percentageY = ((screenWidthY - pixelsY) / screenWidthY) * 100
-    // alert('Left: ' + x + ', Top: ' + x)
     if (
       percentageY > 0 &&
       percentageY < 100 &&

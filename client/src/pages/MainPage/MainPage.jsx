@@ -1,9 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   MainPageWrapper,
-  Logo,
-  HeaderLink,
-  Header,
   Text,
   BackFrames,
   MainSection,
@@ -15,23 +12,29 @@ import {
   WhatBlockP,
   Footer,
 } from './MainPage.styles'
+import { toast } from 'react-toastify'
 
 import { Link } from 'react-router-dom'
 
-import { Button, AllPlaces } from '../../components'
+import {
+  Button,
+  AllPlaces,
+  Registration,
+  Authorization,
+  Header,
+} from '../../components'
+import { useStores } from './../../hooks/useStores'
 
 import logo from './../../assets/logo.svg'
 import backFrames from './../../assets/back-frames.svg'
 
 const MainPage = () => {
+  const { authStore } = useStores()
+
+  console.log(authStore)
   return (
     <MainPageWrapper>
-      <Header>
-        <Logo src={logo} alt=""></Logo>
-        <HeaderLink href="">О проекте</HeaderLink>
-        <HeaderLink href="">Цена</HeaderLink>
-        <HeaderLink href="">Контакты</HeaderLink>
-      </Header>
+      <Header></Header>
       <MainSection>
         <Text>
           Хочешь забронировать стол в любимом месте, но не хочешь звонить? Ты
@@ -40,7 +43,13 @@ const MainPage = () => {
           заведение сейчас!
         </Text>
         <Link to="/">
-          <Button state="start" text="Посмотреть" />
+          <Button
+            state="start"
+            text="Посмотреть"
+            onClick={() => {
+              toast.success('kek')
+            }}
+          />
         </Link>
         <BackFrames src={backFrames} alt="" />
       </MainSection>

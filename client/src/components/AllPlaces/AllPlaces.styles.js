@@ -66,6 +66,7 @@ export const CardText = styled.div`
   width: calc(100% - 100px);
   height: 100%;
   margin-left: 100px;
+  color: black;
   h1 {
     margin: 0;
     text-transform: uppercase;

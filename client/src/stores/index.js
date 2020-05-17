@@ -1,3 +1,4 @@
-import ThemeStore from './themeStore.tsx'
+import ThemeStore from './themeStore.jsx'
+import AuthStore from './authStore.jsx'
 
-export { ThemeStore }
+export { ThemeStore, AuthStore }

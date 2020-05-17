@@ -2,39 +2,25 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { FrameConstructor, FormTableConstructor } from '../../components'
 import { ConstructorWrapper, PlaceLogo, Logo } from './Constructor.styles'
 import { Link, useParams } from 'react-router-dom'
+import { useConstructor } from '../../hooks/useConstructor'
 
 import bronyaLogo from './../../assets/logo.svg'
 
 const Constructor = () => {
   let { idPlace } = useParams()
+  const constructorProps = useConstructor()
 
   const [, setErrors] = useState(false)
   const [, setIsFetching] = useState(true)
-
-  const [id, setId] = useState(0)
-  const [x, setX] = useState(18)
-  const [y, setY] = useState(14)
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
-  const [address, setAddress] = useState('')
-  const [start, setStart] = useState(10)
-  const [end, setEnd] = useState(22)
-
-  const [file, setFile] = useState({})
   const [image, setImage] = useState({ preview: '', raw: '' })
-  const [logo, setLogo] = useState({ preview: '', raw: '' })
 
-  const [color, setColor] = useState({
-    color1: '#473b7b',
-    color2: '#3584a7',
-    color3: '#30d2be',
-  })
-
-  const [data, setData] = useState({
-    table: [],
-  })
+  // const [data, setData] = useState({
+  //   table: [],
+  // })
   const table = {
-    table: [{ seats: id, x: x, y: y }],
+    table: [
+      { id: constructorProps.id, x: constructorProps.x, y: constructorProps.y },
+    ],
   }
 
   const handleFetch = useCallback(() => {
@@ -43,12 +29,12 @@ const Constructor = () => {
         .then((res) => res.json())
         .then((data) => {
           setIsFetching(false)
-          setName(data.data.name)
-          setDescription(data.data.description)
-          setAddress(data.data.address)
-          setStart(data.data.start)
-          setEnd(data.data.end)
-          setColor({
+          constructorProps.setName(data.data.name)
+          constructorProps.setDescription(data.data.description)
+          constructorProps.setAddress(data.data.address)
+          constructorProps.setStart(data.data.start)
+          constructorProps.setEnd(data.data.end)
+          constructorProps.setColor({
             color1: data.data.color.color1,
             color2: data.data.color.color2,
             color3: data.data.color.color3,
@@ -57,14 +43,15 @@ const Constructor = () => {
             preview: process.env.REACT_APP_UPLOADS + data.data.map,
             rew: '',
           })
-          setLogo({
+          constructorProps.setLogo({
             preview: process.env.REACT_APP_UPLOADS + data.data.logo,
             rew: '',
           })
-          setData({ table: data.data.table })
+          constructorProps.setData({ table: data.data.table })
           setIsFetching(false)
         })
         .catch((err) => setErrors(err))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idPlace])
 
   useEffect(() => {
@@ -72,56 +59,27 @@ const Constructor = () => {
   }, [handleFetch])
 
   return (
-    <ConstructorWrapper color={color}>
-      {JSON.stringify(x)}
-
+    <ConstructorWrapper color={constructorProps.color}>
+      {JSON.stringify(constructorProps.x)}
       <Link to="/">
         <Logo src={bronyaLogo} onClick={(e) => e.stopPropagation()}></Logo>
       </Link>
-      <PlaceLogo logo={logo.preview}></PlaceLogo>
+      <PlaceLogo logo={constructorProps.logo.preview}></PlaceLogo>
       <FrameConstructor
         id="test"
         table={table}
-        places={data}
-        path={'http://192.168.1.124:4002/' + file.path}
+        places={constructorProps.data}
         image={image.preview}
-        x={x}
-        setX={setX}
-        y={y}
-        setY={setY}
-        setData={setData}
-
+        setImage={setImage}
+        {...constructorProps}
         // onmousedown={(event) => showCoords(event)}
       ></FrameConstructor>
       <FormTableConstructor
         idPlace={idPlace}
-        setColor={setColor}
-        color={color}
         table={table}
-        data={data}
-        setData={setData}
-        x={x}
-        setX={setX}
-        y={y}
-        setY={setY}
-        id={id}
-        setId={setId}
-        setImage={setImage}
         image={image}
-        setLogo={setLogo}
-        logo={logo}
-        setFile={setFile}
-        file={file}
-        name={name}
-        setName={setName}
-        description={description}
-        setDescription={setDescription}
-        address={address}
-        setAddress={setAddress}
-        setStart={setStart}
-        start={start}
-        setEnd={setEnd}
-        end={end}
+        setImage={setImage}
+        {...constructorProps}
       ></FormTableConstructor>
     </ConstructorWrapper>
   )

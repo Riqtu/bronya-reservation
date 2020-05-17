@@ -187,6 +187,7 @@ const Frame = (props) => {
               }}
             >
               СТОЛ {index}
+              {props.test}
               <Seats>МЕСТ {props.places.table[index].seats}</Seats>
             </InfoBar>
             <Line></Line>

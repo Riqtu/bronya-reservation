@@ -118,7 +118,6 @@ const inputState = css`
   padding-right: 10px;
   margin: 0;
   margin-top: calc(50% - 65px);
-  /* top: calc(50% - 35px); */
   transition: 0.3s;
   border-radius: 7px;
   text-align: center;

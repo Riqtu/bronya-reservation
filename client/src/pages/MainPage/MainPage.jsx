@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   MainPageWrapper,
   Text,
@@ -16,16 +16,9 @@ import { toast } from 'react-toastify'
 
 import { Link } from 'react-router-dom'
 
-import {
-  Button,
-  AllPlaces,
-  Registration,
-  Authorization,
-  Header,
-} from '../../components'
+import { Button, AllPlaces, Header } from '../../components'
 import { useStores } from './../../hooks/useStores'
 
-import logo from './../../assets/logo.svg'
 import backFrames from './../../assets/back-frames.svg'
 
 const MainPage = () => {

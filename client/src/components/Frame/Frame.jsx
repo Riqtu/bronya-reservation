@@ -18,6 +18,7 @@ import {
   addMinutes,
   addHours,
 } from 'date-fns'
+import { toast } from 'react-toastify'
 import 'react-datepicker/dist/react-datepicker.css'
 import table from './../../assets/table.svg'
 import loader from './../../assets/loader.svg'
@@ -146,6 +147,10 @@ const Frame = (props) => {
             key={index}
             active={active.active}
             onClick={(e) => {
+              toast.success(
+                'Выбрана дата: ' + format(new Date(el), 'yyyy-MM-dd в HH:mm'),
+                { position: 'bottom-center' }
+              )
               props.setDate(format(new Date(el), "yyyy-MM-dd'T'HH:mm"))
               props.setTable(tableIndex)
               props.setTableId(tableId)

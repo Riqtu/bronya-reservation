@@ -91,3 +91,11 @@ export const ButtonBar = styled.div`
   width: 100%;
   text-align: center;
 `
+
+export const AdminButtons = styled.div`
+  position: absolute;
+  left: auto;
+  right: 5px;
+  z-index: 3;
+  top: 5px;
+`

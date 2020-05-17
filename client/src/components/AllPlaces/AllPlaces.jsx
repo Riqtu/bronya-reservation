@@ -7,6 +7,7 @@ import {
   ButtonBar,
   Address,
   Description,
+  AdminButtons,
 } from './AllPlaces.styles'
 import { Link } from 'react-router-dom'
 import { Button } from '../../components'
@@ -18,9 +19,8 @@ const AllPlaces = (props) => {
   const [cookies] = useCookies(['token'])
 
   const [errors, setErrors] = useState(false)
-  const [isFetching, setIsFetching] = useState(true)
+  const [, setIsFetching] = useState(true)
   const [places, setPlaces] = useState({})
-  const [deleted, setDeleted] = useState()
 
   const handleFetch = useCallback(() => {
     fetch(process.env.REACT_APP_GETPLACES)
@@ -28,14 +28,12 @@ const AllPlaces = (props) => {
       .then((res) => {
         setPlaces(res)
         setIsFetching(false)
-        console.log(res)
-        console.log(isFetching)
       })
       .catch((err) => {
         setErrors(err)
         console.log(errors)
       })
-  }, [errors, isFetching])
+  }, [errors])
 
   const handleDelete = useCallback(
     (el) => {
@@ -55,22 +53,35 @@ const AllPlaces = (props) => {
   useEffect(() => {
     handleFetch()
   }, [handleFetch])
+
+  useEffect(() => {
+    console.log(authStore.auth)
+    console.log(authStore.role)
+
+    if (authStore.auth && authStore.role === 'superadmin') {
+      console.log(authStore.data.auth)
+    }
+  }, [authStore])
+
   const placesCard =
     places.data &&
     places.data.map((el, index) => {
       return (
         <Card key={index}>
-          {authStore.role === 'superadmin' && (
-            <Button
-              state="exit"
-              onClick={() => {
-                handleDelete(el._id)
-              }}
-            ></Button>
+          {authStore.auth && authStore.role === 'superadmin' && (
+            <AdminButtons>
+              <Button
+                state="deleteAdmin"
+                onClick={() => {
+                  handleDelete(el._id && el._id)
+                }}
+                text="X"
+              ></Button>
+              <Link to={'/constructor/' + el._id}>
+                <Button state="constructorAdmin" text="<"></Button>
+              </Link>
+            </AdminButtons>
           )}
-          <Link to={'/constructor/' + el._id}>
-            <Button state="exit" text="<"></Button>
-          </Link>
           <CardLogo
             logo={process.env.REACT_APP_UPLOADS + places.data[index].logo}
           ></CardLogo>

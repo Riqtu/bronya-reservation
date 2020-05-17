@@ -13,6 +13,11 @@ const UserSchema = new Schema(
       required: 'Email is required',
       trim: true,
     },
+    phone: {
+      type: String,
+      required: 'Phone is required',
+      trim: true,
+    },
     password: {
       type: String,
       required: 'Password is required',
@@ -35,7 +40,7 @@ const UserSchema = new Schema(
   }
 )
 
-UserSchema.statics.createFields = ['email', 'password', 'name', 'role']
+UserSchema.statics.createFields = ['email', 'password', 'name', 'role', 'phone']
 
 UserSchema.pre('save', function (next) {
   if (!this.isModified('password')) {

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { HeaderWrapper, Logo, AuthWrapper } from './Header.styles'
+import React, { useState } from 'react'
+import { HeaderWrapper, Logo, AuthWrapper, HeaderLink } from './Header.styles'
 import { Registration, Authorization, Button } from '../../components'
 import { Link } from 'react-router-dom'
 import { useStores } from './../../hooks/useStores'
@@ -9,15 +9,9 @@ import { useCookies } from 'react-cookie'
 import logo from './../../assets/logo.svg'
 const Header = (props) => {
   const { authStore } = useStores()
-  const [cookies, setCookie, removeCookie] = useCookies(['token'])
+  const [cookies, removeCookie] = useCookies(['token'])
   const [auth, setAuth] = useState(false)
   const [reg, setReg] = useState(false)
-
-  const [isAuth, setIsAuth] = useState(authStore.auth)
-
-  useEffect(() => {
-    setIsAuth(authStore.auth)
-  }, [authStore])
 
   console.log(cookies)
   return (
@@ -27,25 +21,23 @@ const Header = (props) => {
           <Logo src={logo} alt=""></Logo>
         </Link>
         {props.state}
-        {!isAuth ? (
+        {!authStore.auth ? (
           <AuthWrapper>
-            <Link
-              to=""
+            <HeaderLink
               onClick={() => {
                 setReg(true)
               }}
             >
               Регистрация
-            </Link>
+            </HeaderLink>
 
-            <Link
-              to=""
+            <HeaderLink
               onClick={() => {
                 setAuth(true)
               }}
             >
               Авторизация
-            </Link>
+            </HeaderLink>
           </AuthWrapper>
         ) : (
           <AuthWrapper>
@@ -54,10 +46,13 @@ const Header = (props) => {
               text="Х"
               state="exit"
               onClick={() => {
+                authStore.setAuth(false)
+                authStore.setPhone('')
+                authStore.setRole('')
+                authStore.setToken('')
+                authStore.setName('')
                 localStorage.setItem('authStore', '')
-
                 removeCookie('token', { path: '/' })
-                setIsAuth(false)
               }}
             ></Button>
           </AuthWrapper>
@@ -74,7 +69,6 @@ const Header = (props) => {
         setActive={setAuth}
         setReg={setReg}
         reg={reg}
-        setIsAuth={setIsAuth}
       />
     </React.Fragment>
   )

@@ -29,7 +29,7 @@ const Registration = (props) => {
   const [, setCookie] = useCookies()
 
   const validate = () => {
-    const { email, name, password, phone } = credentials
+    const { email, name, password } = credentials
     const emailCheck = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
     if (!email || !emailCheck.test(email)) {
@@ -59,7 +59,7 @@ const Registration = (props) => {
 
   const handleSubmit = async () => {
     const isValid = validate()
-    credentials.phone = phoneNumber
+    credentials.phone = phoneNumber.replace(/[^0-9]/gim, '').replace(/^7/, '')
     console.log(credentials)
 
     if (isValid) {

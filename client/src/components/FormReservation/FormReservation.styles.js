@@ -65,6 +65,7 @@ const inputState = css`
   border-radius: 7px;
   text-align: center;
   font-size: 12pt;
+  text-transform: uppercase;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
   &:hover {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);

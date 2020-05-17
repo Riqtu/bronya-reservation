@@ -75,6 +75,28 @@ const exit = css`
   transition: 0.14s;
   font-size: 12pt;
 `
+const deleteAdmin = css`
+  background-color: ${red};
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  margin-top: -5px;
+  border-radius: 8px;
+  transition: 0.14s;
+  font-size: 8pt;
+  margin: 3px;
+`
+const constructorAdmin = css`
+  background-color: ${green};
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  margin-top: -5px;
+  border-radius: 8px;
+  transition: 0.14s;
+  font-size: 8pt;
+  margin: 3px;
+`
 
 const allPlaces = css`
   /* margin-bottom: 20px; */
@@ -168,6 +190,10 @@ export const ButtonWrapper = styled.button((props) => {
       return form
     case 'exit':
       return exit
+    case 'deleteAdmin':
+      return deleteAdmin
+    case 'constructorAdmin':
+      return constructorAdmin
     default:
       return defaultState
   }

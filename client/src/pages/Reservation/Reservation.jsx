@@ -10,13 +10,11 @@ import {
 import { useReservation } from '../../hooks/useReservation'
 
 import { Frame, FormReservation, Header } from '../../components'
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { setHours, setMinutes } from 'date-fns'
 import { ru } from 'date-fns/locale'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-
-import logo from './../../assets/logo.svg'
 const Reservation = (props) => {
   const reservationProps = useReservation()
 

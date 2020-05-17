@@ -14,6 +14,8 @@ import {
 } from './FormReservation.styles'
 import InputMask from 'react-input-mask'
 import { format, addMinutes } from 'date-fns'
+import { useStores } from './../../hooks/useStores'
+import { autorun } from 'mobx'
 
 import namePick from './../../assets/form_name.svg'
 import phonePick from './../../assets/form_phone.svg'
@@ -24,10 +26,13 @@ import check from './../../assets/check.svg'
 import loader from './../../assets/loader.svg'
 
 import Button from '../Button'
+import { useEffect } from 'react'
 
 const FormReservation = (props) => {
-  const [name, setName] = useState('')
-  const [phone, setPhone] = useState('')
+  const { authStore } = useStores()
+
+  const [name, setName] = useState(authStore.name && authStore.name)
+  const [phone, setPhone] = useState()
   const [isValidPhone, setIsValidPhone] = useState(true)
   const [isValidName, setIsValidName] = useState(true)
   const [isUpload, setIsUpload] = useState(false)
@@ -41,7 +46,7 @@ const FormReservation = (props) => {
       tableId: props.tableId,
       placeId: props.id,
     }
-
+    console.log(data.phone.replace(/[^0-9]/gim, '').replace(/^7/, ''))
     console.log(data)
 
     if (name !== '' && phone !== '') {
@@ -72,6 +77,14 @@ const FormReservation = (props) => {
     }
   }
 
+  useEffect(
+    () =>
+      autorun(() => {
+        setName(authStore.name)
+        setPhone(authStore.phone)
+      }),
+    []
+  )
   return (
     <FormReservationWrapper>
       {!props.isFetching && props.places ? (

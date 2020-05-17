@@ -45,6 +45,7 @@ export const HeaderLink = styled.a`
   float: left;
   transition: 0.4s;
   margin-right: 12px;
+  cursor: pointer;
   &:hover {
     color: #83f0bc;
   }

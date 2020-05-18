@@ -7,6 +7,7 @@ export default class AuthStore {
   phone = ''
   role = ''
   token = ''
+  id = ''
 
   data = {}
   setAuth(el) {
@@ -30,9 +31,24 @@ export default class AuthStore {
     localStorage.setItem('authStore', this.data)
   }
   setToken(el) {
-    this.auth = el
+    this.token = el
     this.data.token = el
     localStorage.setItem('authStore', this.data)
+  }
+  setId(el) {
+    this.id = el
+    this.data.id = el
+    localStorage.setItem('authStore', this.data)
+  }
+
+  clearAll() {
+    localStorage.setItem('authStore', null)
+    this.auth = false
+    this.name = ''
+    this.phone = ''
+    this.role = ''
+    this.token = ''
+    this.id = ''
   }
 
   constructor() {
@@ -43,6 +59,7 @@ export default class AuthStore {
       this.setPhone(data.phone)
       this.setRole(data.role)
       this.setToken(data.token)
+      this.setId(data.id)
     }
   }
 }
@@ -53,10 +70,14 @@ decorate(AuthStore, {
   name: observable,
   role: observable,
   token: observable,
+  id: observable,
 
   setAuth: action,
   setName: action,
   setPhone: action,
   setRole: action,
   setToken: action,
+  setId: action,
+
+  clearAll: action,
 })

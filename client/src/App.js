@@ -1,5 +1,11 @@
 import React from 'react'
-import { MainPage, Reservation, Constructor, Restorator } from './pages'
+import {
+  MainPage,
+  Reservation,
+  Constructor,
+  Restorator,
+  Profile,
+} from './pages'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -19,6 +25,9 @@ function App() {
           </Route>
           <Route path="/constructor">
             <Constructor></Constructor>
+          </Route>
+          <Route path="/profile/:id">
+            <Profile></Profile>
           </Route>
           <Route path="/reservation/:id">
             <Reservation></Reservation>

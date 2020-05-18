@@ -1,5 +1,7 @@
 import pick from 'lodash/pick'
 import { Place } from './../models'
+import { User } from './../../users'
+
 import { PlaceService } from './../services'
 
 import { Reservation } from './../../reservation/models'
@@ -104,6 +106,23 @@ export default {
   async getPlace(ctx) {
     const place = await Place.find({})
     ctx.body = { data: place }
+  },
+  async getUserPlace(ctx) {
+    const {
+      params: { userId: userId },
+    } = ctx
+
+    console.log(userId)
+    const user = await User.findOneWithPublicFields({})
+      .where('_id')
+      .equals(userId)
+
+    console.log(user)
+    console.log(user.likes)
+
+    const find = await Place.find({}).where('_id').equals(user.likes)
+
+    ctx.body = { data: find }
   },
   async addGuest(ctx) {
     const {

@@ -14,6 +14,7 @@ router.delete('/:id', checkAdmin(), placesController.delete)
 
 router.get('/', placesController.getPlace)
 router.get('/:id', placesController.getPlaceByID)
+router.get('/users/:userId', placesController.getUserPlace)
 
 export { Place }
 

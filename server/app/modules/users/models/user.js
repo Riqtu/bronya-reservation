@@ -34,13 +34,21 @@ const UserSchema = new Schema(
       lowercase: true,
       trim: true,
     },
+    likes: [],
   },
   {
     timestamps: true,
   }
 )
 
-UserSchema.statics.createFields = ['email', 'password', 'name', 'role', 'phone']
+UserSchema.statics.createFields = [
+  'email',
+  'password',
+  'name',
+  'role',
+  'phone',
+  'likes',
+]
 
 UserSchema.pre('save', function (next) {
   if (!this.isModified('password')) {

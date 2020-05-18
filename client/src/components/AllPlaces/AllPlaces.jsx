@@ -22,18 +22,21 @@ const AllPlaces = (props) => {
   const [, setIsFetching] = useState(true)
   const [places, setPlaces] = useState({})
 
-  const handleFetch = useCallback(() => {
-    fetch(process.env.REACT_APP_GETPLACES)
-      .then((res) => res.json())
-      .then((res) => {
-        setPlaces(res)
-        setIsFetching(false)
-      })
-      .catch((err) => {
-        setErrors(err)
-        console.log(errors)
-      })
-  }, [errors])
+  const handleFetch = useCallback(
+    (path) => {
+      fetch(path)
+        .then((res) => res.json())
+        .then((res) => {
+          setPlaces(res)
+          setIsFetching(false)
+        })
+        .catch((err) => {
+          setErrors(err)
+          console.log(errors)
+        })
+    },
+    [errors]
+  )
 
   const handleDelete = useCallback(
     (el) => {
@@ -51,7 +54,7 @@ const AllPlaces = (props) => {
   )
 
   useEffect(() => {
-    handleFetch()
+    handleFetch(props.path)
   }, [handleFetch])
 
   useEffect(() => {
@@ -75,10 +78,9 @@ const AllPlaces = (props) => {
                 onClick={() => {
                   handleDelete(el._id && el._id)
                 }}
-                text="X"
               ></Button>
               <Link to={'/constructor/' + el._id}>
-                <Button state="constructorAdmin" text="<"></Button>
+                <Button state="constructorAdmin"></Button>
               </Link>
             </AdminButtons>
           )}

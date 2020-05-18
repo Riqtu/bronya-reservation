@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
-import { HeaderWrapper, Logo, AuthWrapper, HeaderLink } from './Header.styles'
+import {
+  HeaderWrapper,
+  Logo,
+  AuthWrapper,
+  HeaderLink,
+  ImgConstructor,
+} from './Header.styles'
 import { Registration, Authorization, Button } from '../../components'
 import { Link } from 'react-router-dom'
 import { useStores } from './../../hooks/useStores'
@@ -7,6 +13,8 @@ import localStorage from 'mobx-localstorage'
 import { useCookies } from 'react-cookie'
 
 import logo from './../../assets/logo.svg'
+import constructor from './../../assets/constructor.svg'
+
 const Header = (props) => {
   const { authStore } = useStores()
   const [cookies, removeCookie] = useCookies(['token'])
@@ -41,17 +49,16 @@ const Header = (props) => {
           </AuthWrapper>
         ) : (
           <AuthWrapper>
-            <Link to="">{authStore.name}</Link>
+            <Link to={'/profile/' + authStore.id}>{authStore.name}</Link>
+            {authStore.auth && authStore.role === 'superadmin' && (
+              <Link to="/constructor">
+                <ImgConstructor src={constructor} alt="" />
+              </Link>
+            )}
             <Button
-              text="Х"
               state="exit"
               onClick={() => {
-                authStore.setAuth(false)
-                authStore.setPhone('')
-                authStore.setRole('')
-                authStore.setToken('')
-                authStore.setName('')
-                localStorage.setItem('authStore', '')
+                authStore.clearAll()
                 removeCookie('token', { path: '/' })
               }}
             ></Button>

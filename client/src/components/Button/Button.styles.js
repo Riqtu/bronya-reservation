@@ -1,6 +1,11 @@
 import styled from '@emotion/styled'
 import { css } from '@emotion/core'
 import { green, darkGreen, red } from './../../constants'
+
+import edit from './../../assets/edit.svg'
+import deleteImg from './../../assets/delete.svg'
+import exitImg from './../../assets/exit.svg'
+
 const start = css`
   background-color: ${green};
   border: none;
@@ -67,6 +72,10 @@ const form = css`
 `
 const exit = css`
   background-color: ${red};
+  background-image: url(${exitImg});
+  background-size: 40%;
+  background-position: center;
+  background-repeat: no-repeat;
   border: none;
   color: white;
   padding: 5px 10px;
@@ -74,9 +83,15 @@ const exit = css`
   border-radius: 10px;
   transition: 0.14s;
   font-size: 12pt;
+  width: 30px;
+  height: 30px;
 `
 const deleteAdmin = css`
   background-color: ${red};
+  background-image: url(${deleteImg});
+  background-size: 40%;
+  background-position: center;
+  background-repeat: no-repeat;
   border: none;
   color: white;
   padding: 5px 10px;
@@ -85,9 +100,15 @@ const deleteAdmin = css`
   transition: 0.14s;
   font-size: 8pt;
   margin: 3px;
+  height: 21px;
+  width: 28px;
 `
 const constructorAdmin = css`
   background-color: ${green};
+  background-image: url(${edit});
+  background-size: 40%;
+  background-position: center;
+  background-repeat: no-repeat;
   border: none;
   color: white;
   padding: 5px 10px;
@@ -96,6 +117,8 @@ const constructorAdmin = css`
   transition: 0.14s;
   font-size: 8pt;
   margin: 3px;
+  height: 21px;
+  width: 28px;
 `
 
 const allPlaces = css`

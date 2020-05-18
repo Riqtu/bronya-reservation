@@ -14,7 +14,9 @@ export const Logo = styled.img`
     margin: 15px;
   }
 `
-
+export const ImgConstructor = styled.img`
+  width: 20px;
+`
 export const AuthWrapper = styled.div`
   position: absolute;
   left: auto;

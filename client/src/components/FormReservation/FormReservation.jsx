@@ -83,7 +83,7 @@ const FormReservation = (props) => {
         setName(authStore.name)
         setPhone(authStore.phone)
       }),
-    []
+    [authStore.name, authStore.phone]
   )
   return (
     <FormReservationWrapper>

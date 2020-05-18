@@ -48,7 +48,7 @@ const MainPage = () => {
       </MainSection>
       <All>
         <Partners>Партнеры</Partners>
-        <AllPlaces></AllPlaces>
+        <AllPlaces path={process.env.REACT_APP_GETPLACES}></AllPlaces>
         <WhatBlock>
           <WhatBlockH1>Защищенный, удобный способ бронирования</WhatBlockH1>
           <WhatBlockP>

@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { TimeCardWrapper, Time, InfoBar, Line } from './TimeCard.styles'
 import { getYear, getMonth, getDate, format, addMinutes } from 'date-fns'
 import io from 'socket.io-client'
+import { toast } from 'react-toastify'
 
 const TimeCard = (props) => {
   const [data, setData] = useState({})
@@ -27,6 +28,17 @@ const TimeCard = (props) => {
         console.log(props.tableId)
         handleFetch(data.id)
         socket.emit('message', 'Update place')
+        toast.success(
+          <div>
+            Новое бронирование! <br />
+            Имя: {data.name} <br />
+            Телефон: {data.phone} <br />
+            Дата: {format(new Date(data.date[0]), 'dd.MM.yyyy в HH:mm')}
+          </div>,
+          {
+            position: 'top-right',
+          }
+        )
       }
     })
     socket.emit('message', 'Hello Server')
@@ -41,9 +53,9 @@ const TimeCard = (props) => {
     let arr = []
     for (let i = start; i < end; i++) {
       const thisDate = new Date(
-        getYear(new Date()),
-        getMonth(new Date()),
-        getDate(new Date()),
+        getYear(new Date(props.date)),
+        getMonth(new Date(props.date)),
+        getDate(new Date(props.date)),
         i,
         0,
         0
@@ -152,7 +164,7 @@ const TimeCard = (props) => {
       >
         <InfoBar>СТОЛ {props.tableIndex}</InfoBar>
         <Line></Line>
-        {generate(10, 20, props.tableIndex, props.tableId)}
+        {generate(props.start, props.end, props.tableIndex, props.tableId)}
         {/* <Info active={infoActive} x={infoCoord.x} y={infoCoord.y}></Info> */}
       </TimeCardWrapper>
     )

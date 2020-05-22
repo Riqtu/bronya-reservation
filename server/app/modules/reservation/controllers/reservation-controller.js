@@ -15,7 +15,13 @@ export default {
       )
       const reservation = await Reservation.findOne({ _id })
       ctx.body = { data: reservation }
-      ctx.req.io.emit('message', { action: 'update', id: reservation.tableId })
+      ctx.req.io.emit('message', {
+        action: 'update',
+        id: reservation.tableId,
+        name: reservation.guestName,
+        phone: reservation.phone,
+        date: reservation.date,
+      })
     } catch (e) {
       console.log(e)
       ctx.throw(400, e)

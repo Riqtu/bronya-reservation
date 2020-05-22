@@ -79,6 +79,7 @@ const Authorization = (props) => {
           authStore.setPhone(data.data.phone)
           authStore.setToken(data.token)
           authStore.setId(data.data._id)
+          authStore.setLike(data.data.likes)
 
           setCookie('token', data.token)
           props.setActive(false)

@@ -77,16 +77,20 @@ const FormReservation = (props) => {
     }
   }
 
-  useEffect(
-    () =>
-      autorun(() => {
-        setName(authStore.name)
-        setPhone(authStore.phone)
-      }),
-    [authStore.name, authStore.phone]
-  )
+  useEffect(() => {
+    autorun(() => {
+      setName(authStore.name)
+      setPhone(authStore.phone)
+    })
+  }, [authStore.name, authStore.phone])
   return (
-    <FormReservationWrapper>
+    <FormReservationWrapper
+      media={props.media}
+      onClick={(e) => {
+        e.preventDefault()
+        e.stopPropagation()
+      }}
+    >
       {!props.isFetching && props.places ? (
         <Logo logo={process.env.REACT_APP_UPLOADS + props.places.logo}></Logo>
       ) : (

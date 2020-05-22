@@ -16,7 +16,16 @@ export const FormReservationWrapper = styled.div`
   border-radius: 15px;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
   @media screen and (max-width: 500px) {
-    display: none;
+    display: ${(props) => (props.media ? 'block' : 'none')};
+    z-index: 100;
+    left: 10%;
+    right: 0;
+    top: 40px;
+    bottom: 0;
+    width: 55%;
+    min-width: 55%;
+    padding-top: 25px;
+    padding-bottom: 25px;
   }
 `
 
@@ -30,6 +39,10 @@ export const Logo = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   /* background-color: blue; */
+  @media screen and (max-width: 500px) {
+    width: 50%;
+    left: 25%;
+  }
 `
 
 export const InputLine = styled.div`
@@ -37,6 +50,9 @@ export const InputLine = styled.div`
   width: 100%;
   height: 50px;
   margin-bottom: 30px;
+  @media screen and (max-width: 500px) {
+    height: 25px;
+  }
 `
 
 export const Label = styled.div`
@@ -51,6 +67,11 @@ export const Label = styled.div`
   margin-left: ${(props) => (props.small ? '20px' : '0px')};
 
   float: left;
+  @media screen and (max-width: 500px) {
+    width: 25px;
+    height: 25px;
+    margin-right: ${(props) => (props.small ? '20px' : '20px')};
+  }
 `
 
 const inputState = css`
@@ -76,6 +97,11 @@ const inputState = css`
   }
   &:active {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  }
+  @media screen and (max-width: 500px) {
+    height: 25px;
+    width: calc(100% - 45px);
+    background-color: rgba(0, 0, 0, 0.1);
   }
 `
 const notValid = css`
@@ -118,6 +144,11 @@ export const SmallInput = styled.input`
   }
   &:active {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  }
+  @media screen and (max-width: 500px) {
+    height: 25px;
+    width: 47px;
+    background-color: rgba(0, 0, 0, 0.1);
   }
 `
 

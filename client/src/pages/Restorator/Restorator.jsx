@@ -4,18 +4,22 @@ import {
   Tables,
   Info,
   Input,
-  Logo,
-  PlaceLogo,
-  Header,
+  InputHeader,
 } from './Restorator.styles'
-import { TimeCard, Button } from '../../components'
-import { useParams, Link } from 'react-router-dom'
-
-import bronyaLogo from './../../assets/logo.svg'
+import { TimeCard, Button, Header } from '../../components'
+import { useParams } from 'react-router-dom'
+import { useStores } from './../../hooks/useStores'
+import DatePicker, { registerLocale } from 'react-datepicker'
+import { setHours, setMinutes } from 'date-fns'
+import { ru } from 'date-fns/locale'
 
 const Restorator = (props) => {
   let { id } = useParams()
-
+  registerLocale('ru', ru)
+  const { authStore } = useStores()
+  const [startDate, setStartDate] = useState(
+    setHours(setMinutes(new Date(), 0), 10)
+  )
   const [, setErrors] = useState(false)
   const [isFetching, setIsFetching] = useState(true)
   const [place, setPlace] = useState({})
@@ -76,8 +80,6 @@ const Restorator = (props) => {
 
   useEffect(() => {
     handleFetch()
-
-    console.log(1)
   }, [handleFetch])
 
   const cards =
@@ -88,6 +90,9 @@ const Restorator = (props) => {
           tableId={el._id}
           key={index}
           tableIndex={index}
+          start={place.start}
+          end={place.end}
+          date={startDate}
           setInfoActive={setInfoActive}
           setInfoCoord={setInfoCoord}
           setInputUpload={setInputUpload}
@@ -127,28 +132,40 @@ const Restorator = (props) => {
 
   if (!isFetching)
     return (
-      <RestoratorWrapper onClick={() => setInfoActive({ active: false })}>
-        <Header>
-          <Link to="/">
-            <Logo src={bronyaLogo} onClick={(e) => e.stopPropagation()}></Logo>
-          </Link>
-          <PlaceLogo
-            logo={process.env.REACT_APP_UPLOADS + place.logo}
-          ></PlaceLogo>
-        </Header>
-        <Tables>{cards}</Tables>
-        <Info active={infoActive.active} x={infoCoord.x} y={infoCoord.y}>
-          <Input
-            type="text"
-            value={inputName}
-            onChange={(e) => {
-              setInputName(e.target.value)
-            }}
-            onClick={(e) => e.stopPropagation()}
+      <React.Fragment>
+        <RestoratorWrapper onClick={() => setInfoActive({ active: false })}>
+          <Header
+            state={
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => {
+                  setStartDate(date)
+                }}
+                locale="ru"
+                dateFormat="dd.MM.yyyy"
+                customInput={<InputHeader />}
+              />
+            }
           />
-          {whatInfo()}
-        </Info>
-      </RestoratorWrapper>
+          <Tables>{cards}</Tables>
+          {/* <div>.</div> */}
+          {authStore.auth &&
+            (authStore.role === 'superadmin' ||
+              authStore.role === 'restorator') && (
+              <Info active={infoActive.active} x={infoCoord.x} y={infoCoord.y}>
+                <Input
+                  type="text"
+                  value={inputName}
+                  onChange={(e) => {
+                    setInputName(e.target.value)
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                />
+                {whatInfo()}
+              </Info>
+            )}
+        </RestoratorWrapper>
+      </React.Fragment>
     )
   else return <div></div>
 }

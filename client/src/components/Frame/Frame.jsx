@@ -154,6 +154,7 @@ const Frame = (props) => {
               props.setDate(format(new Date(el), "yyyy-MM-dd'T'HH:mm"))
               props.setTable(tableIndex)
               props.setTableId(tableId)
+              props.setMedia(true)
               e.preventDefault()
               e.stopPropagation()
             }}

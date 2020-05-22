@@ -31,4 +31,27 @@ export default {
 
     ctx.body = { data: user, token: token }
   },
+  async updateUser(ctx) {
+    const {
+      params: { id: _id },
+      request: { body },
+    } = ctx
+
+    const user = await User.findOne({ _id })
+
+    if (!user) {
+      ctx.throw(404, 'Missing user')
+    }
+
+    console.log(body)
+    console.log(JSON.parse(body))
+
+    const newData = pick(JSON.parse(body), User.createFields)
+
+    user.set(newData)
+
+    user.save()
+
+    ctx.body = { data: newData }
+  },
 }

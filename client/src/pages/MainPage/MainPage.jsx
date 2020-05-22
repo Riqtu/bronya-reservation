@@ -11,8 +11,9 @@ import {
   WhatBlockH1,
   WhatBlockP,
   Footer,
+  FooterImg,
+  FooterText,
 } from './MainPage.styles'
-import { toast } from 'react-toastify'
 
 import { Link } from 'react-router-dom'
 
@@ -20,6 +21,7 @@ import { Button, AllPlaces, Header } from '../../components'
 import { useStores } from './../../hooks/useStores'
 
 import backFrames from './../../assets/back-frames.svg'
+import logo from './../../assets/logo.svg'
 
 const MainPage = () => {
   const { authStore } = useStores()
@@ -35,14 +37,8 @@ const MainPage = () => {
           бронирования “Броня” отлично подойдет для тебя. Найди любимое
           заведение сейчас!
         </Text>
-        <Link to="/">
-          <Button
-            state="start"
-            text="Посмотреть"
-            onClick={() => {
-              toast.success('kek')
-            }}
-          />
+        <Link to="/places">
+          <Button state="start" text="Посмотреть" />
         </Link>
         <BackFrames src={backFrames} alt="" />
       </MainSection>
@@ -60,7 +56,13 @@ const MainPage = () => {
         </WhatBlock>
       </All>
       {/* <FooterLayer src={footerLayer} alt=""></FooterLayer> */}
-      <Footer></Footer>
+      <Footer>
+        <FooterImg src={logo} alt=""></FooterImg>
+        <FooterText>
+          Выпускная квалификационная работа студента 4 курса 6 группы Выдро
+          Артема
+        </FooterText>
+      </Footer>
     </MainPageWrapper>
   )
 }

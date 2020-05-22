@@ -7,7 +7,8 @@ const router = new Router({ prefix: '/auth' })
 router
   .post('/signup', authController.signUp)
   .post('/signin', authController.signIn)
-  .post('/private', checkUser(), ctx => {
+  .put('/user/:id', checkUser(), authController.updateUser)
+  .post('/private', checkUser(), (ctx) => {
     ctx.body = ctx.user
   })
 

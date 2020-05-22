@@ -4,6 +4,8 @@ import { green, darkGreen, red } from './../../constants'
 
 import edit from './../../assets/edit.svg'
 import deleteImg from './../../assets/delete.svg'
+import documents from './../../assets/documents.svg'
+
 import exitImg from './../../assets/exit.svg'
 
 const start = css`
@@ -22,6 +24,9 @@ const start = css`
   position: relative;
   &:hover {
     background-color: ${darkGreen};
+  }
+  @media screen and (max-width: 500px) {
+    margin-left: 4%;
   }
 `
 
@@ -69,6 +74,9 @@ const form = css`
   border-radius: 10px;
   transition: 0.14s;
   font-size: 12pt;
+  @media screen and (max-width: 500px) {
+    margin: 20px 0;
+  }
 `
 const exit = css`
   background-color: ${red};
@@ -103,9 +111,66 @@ const deleteAdmin = css`
   height: 21px;
   width: 28px;
 `
+const like = css`
+  background-color: ${red};
+  background-image: url();
+  background-size: 40%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  margin-top: -5px;
+  border-radius: 8px;
+  transition: 0.14s;
+  font-size: 8pt;
+  margin: 3px;
+  height: 21px;
+  width: 28px;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+`
+const unLike = css`
+  background-color: white;
+  background-image: url();
+  background-size: 40%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  margin-top: -5px;
+  border-radius: 8px;
+  transition: 0.14s;
+  font-size: 8pt;
+  margin: 3px;
+  height: 21px;
+  width: 28px;
+  position: absolute;
+  z-index: 100;
+`
 const constructorAdmin = css`
   background-color: ${green};
   background-image: url(${edit});
+  background-size: 40%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  margin-top: -5px;
+  border-radius: 8px;
+  transition: 0.14s;
+  font-size: 8pt;
+  margin: 3px;
+  height: 21px;
+  width: 28px;
+`
+const restoratorAdmin = css`
+  background-color: ${green};
+  background-image: url(${documents});
   background-size: 40%;
   background-position: center;
   background-repeat: no-repeat;
@@ -215,8 +280,14 @@ export const ButtonWrapper = styled.button((props) => {
       return exit
     case 'deleteAdmin':
       return deleteAdmin
+    case 'like':
+      return like
+    case 'unLike':
+      return unLike
     case 'constructorAdmin':
       return constructorAdmin
+    case 'restoratorAdmin':
+      return restoratorAdmin
     default:
       return defaultState
   }

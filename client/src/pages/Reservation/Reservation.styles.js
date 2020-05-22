@@ -67,8 +67,10 @@ export const CallBar = styled.div`
   text-transform: uppercase;
   font-size: 20pt;
   @media screen and (max-width: 500px) {
-    left: 15px;
-    top: 150px;
+    left: 0;
+    top: 220px;
+    text-align: center;
+    width: 100%;
   }
 `
 export const BackFrameWrapper = styled.div`
@@ -94,7 +96,7 @@ export const BackFrame = styled.div`
     text-align: center;
   }
   @media screen and (max-width: 500px) {
-    top: ${(props) => (props.bottom ? '56%' : '-20%')};
+    top: ${(props) => (props.bottom ? '76%' : '-20%')};
   }
 `
 
@@ -123,6 +125,7 @@ const inputState = css`
   text-align: center;
   font-size: 12pt;
   font-family: 'Montserrat', sans-serif;
+  /* float: left; */
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
   &:hover {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -135,7 +138,8 @@ const inputState = css`
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   }
   @media screen and (max-width: 500px) {
-    margin-left: 15px;
+    margin-left: calc(50vw - 110px);
+    margin-top: 60px;
     top: -15px;
   }
 `
@@ -143,3 +147,10 @@ const inputState = css`
 export const Input = styled.input((props) => {
   return inputState
 })
+
+export const AdminButtons = styled.div`
+  position: absolute;
+  left: 42%;
+  top: 107px;
+  z-index: 3;
+`

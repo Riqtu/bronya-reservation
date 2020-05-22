@@ -1,10 +1,12 @@
 import styled from '@emotion/styled'
+
 import { keyframes } from '@emotion/core'
 import { zoomIn } from 'react-animations'
 import { green } from './../../constants'
 
 const zoomInAnimation = keyframes`${zoomIn}`
-export const RegistrationWrapper = styled.div`
+
+export const ProfileSettingWrapper = styled.div`
   position: fixed;
   width: 100%;
   height: 100vh;
@@ -14,14 +16,16 @@ export const RegistrationWrapper = styled.div`
   z-index: 100;
   opacity: ${(props) => (props.active ? '1' : '0')};
   visibility: ${(props) => (props.active ? 'visible' : 'hidden')};
-  transform: translateY(
-    ${(props) => (props.active ? (props.auth ? '-100%' : '0') : '-100%')}
-  );
+  transform: translateY(${(props) => (props.active ? '0' : '-100%')});
   transition: 0.5s;
   display: grid;
   justify-content: center;
   align-content: center;
   cursor: pointer;
+  label {
+    color: black;
+    opacity: 0.3;
+  }
 `
 export const Form = styled.form`
   cursor: default;
@@ -34,16 +38,9 @@ export const Form = styled.form`
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   animation: 1s ${(props) => (props.active ? zoomInAnimation : '')} ease;
   text-align: center;
-  @media screen and (max-width: 500px) {
-    width: 70%;
-    margin-left: 10%;
-  }
 `
 export const Img = styled.img`
-  width: 60%;
-  @media screen and (max-width: 500px) {
-    width: 80%;
-  }
+  width: 20%;
 `
 export const Logo = styled.h1`
   font-size: 1.9rem;
@@ -51,11 +48,9 @@ export const Logo = styled.h1`
   text-transform: uppercase;
   opacity: 0.5;
   color: black;
-  @media screen and (max-width: 500px) {
-    font-size: 1.4rem;
-  }
 `
 export const Change = styled.a`
+  position: relative;
   font-size: 1.3rem;
   font-weight: 400;
   text-transform: uppercase;
@@ -74,9 +69,6 @@ export const Change = styled.a`
   &:hover {
     opacity: 1;
   }
-  @media screen and (max-width: 500px) {
-    font-size: 1rem;
-  }
 `
 export const Line = styled.div`
   position: relative;
@@ -88,7 +80,7 @@ export const Line = styled.div`
   margin-bottom: 20px;
 `
 export const Input = styled.input`
-  position: relative;
+  /* position: relative; */
   text-align: center;
   border: none;
   border-bottom: 1px solid black;
@@ -113,10 +105,5 @@ export const Input = styled.input`
   }
   &:hover {
     opacity: 1;
-  }
-  @media screen and (max-width: 500px) {
-    width: 80%;
-    margin: 10px;
-    padding: 7px;
   }
 `

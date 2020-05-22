@@ -13,7 +13,7 @@ export const FrameWrapper = styled.div`
     width: calc(600px / 1.6);
     height: calc(432px / 1.6);
     text-align: center;
-    top: 35%;
+    top: 45%;
     overflow: hidden;
   }
   z-index: 0;
@@ -82,8 +82,9 @@ export const TableTime = styled.div`
   padding: 10px;
 
   @media screen and (max-width: 500px) {
-    left: calc(50% - 120px);
-    top: 10px;
+    width: 77%;
+    left: 9%;
+    top: 12px;
   }
 `
 export const InfoBar = styled.div`
@@ -150,6 +151,10 @@ export const Time = styled.button`
     100% {
       opacity: 1;
     }
+  }
+  @media screen and (max-width: 500px) {
+    width: 47px;
+    height: 27px;
   }
 `
 

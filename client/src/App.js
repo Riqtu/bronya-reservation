@@ -5,6 +5,7 @@ import {
   Constructor,
   Restorator,
   Profile,
+  Places,
 } from './pages'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
@@ -22,6 +23,9 @@ function App() {
           </Route>
           <Route path="/constructor/:idPlace">
             <Constructor></Constructor>
+          </Route>
+          <Route path="/places">
+            <Places></Places>
           </Route>
           <Route path="/constructor">
             <Constructor></Constructor>

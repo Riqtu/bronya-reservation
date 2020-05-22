@@ -1,5 +1,7 @@
 import styled from '@emotion/styled'
 
+import { red } from './../../constants'
+
 export const AllPlacesWrapper = styled.div`
   /* position: relative; */
   margin-top: -20px;
@@ -16,12 +18,15 @@ export const AllPlacesWrapper = styled.div`
   @media screen and (max-width: 500px) {
     display: grid;
     justify-content: center;
-    margin-left: 0;
+    margin-left: 15px;
+    left: 0;
+    width: 100%;
   }
   /* min-height: fit-content; */
 `
 
 export const Card = styled.div`
+  opacity: ${(props) => (props.disabled ? '0' : '1')};
   position: relative;
   width: 300px;
   height: 100px;
@@ -98,4 +103,61 @@ export const AdminButtons = styled.div`
   right: 5px;
   z-index: 3;
   top: 5px;
+`
+
+export const Like = styled.button`
+  position: absolute;
+  z-index: 3;
+  border: none;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  opacity: ${(props) => (props.liked ? '1' : '0.1')};
+  &:focus {
+    outline: 0;
+  }
+  animation: ${(props) => (props.liked ? 'like' : '0')} ease 0.3s forwards;
+  @keyframes like {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1);
+    }
+  }
+`
+
+export const LikeDiv = styled.div`
+  position: absolute;
+  background-color: ${(props) => (props.liked ? red : 'black')};
+  height: 10px;
+  transform: rotate(-45deg);
+  width: 10px;
+  top: 0;
+  left: 0;
+  border: none;
+  transition: 0.3s;
+  &:before {
+    content: '';
+    background-color: ${(props) => (props.liked ? red : 'black')};
+    border-radius: 50%;
+    height: 10px;
+    position: absolute;
+    width: 10px;
+    top: 0px;
+    left: 5px;
+    transition: 0.3s;
+  }
+  &:after {
+    content: '';
+    background-color: ${(props) => (props.liked ? red : 'black')};
+    border-radius: 50%;
+    height: 10px;
+    position: absolute;
+    width: 10px;
+    top: -5px;
+    left: 0;
+    transition: 0.3s;
+  }
 `

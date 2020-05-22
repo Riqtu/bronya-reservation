@@ -1,4 +1,5 @@
 /*APPEND COMPONENT IMPORT HERE*/
+import ProfileSetting from './ProfileSetting'
 import Header from './Header'
 import Authorization from './Authorization'
 import Registration from './Registration'
@@ -12,6 +13,7 @@ import Button from './Button'
 
 export {
   /*APPEND COMPONENT EXPORT HERE*/
+  ProfileSetting,
   Header,
   Authorization,
   Registration,

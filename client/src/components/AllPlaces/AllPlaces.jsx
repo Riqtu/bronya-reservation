@@ -8,6 +8,8 @@ import {
   Address,
   Description,
   AdminButtons,
+  Like,
+  LikeDiv,
 } from './AllPlaces.styles'
 import { Link } from 'react-router-dom'
 import { Button } from '../../components'
@@ -21,6 +23,8 @@ const AllPlaces = (props) => {
   const [errors, setErrors] = useState(false)
   const [, setIsFetching] = useState(true)
   const [places, setPlaces] = useState({})
+
+  const [disabled, setDisabled] = useState()
 
   const handleFetch = useCallback(
     (path) => {
@@ -53,24 +57,45 @@ const AllPlaces = (props) => {
     [handleFetch, cookies.token]
   )
 
+  const handleUpdateLike = useCallback(
+    (el) => {
+      const find = authStore.like.indexOf(el._id)
+      if (find === -1) {
+        authStore.setLike([...authStore.like, el._id])
+      } else {
+        authStore.setLike(authStore.like.filter((item) => item !== el._id))
+        setDisabled(el._id)
+      }
+      fetch(process.env.REACT_APP_USER + authStore.id, {
+        method: 'PUT',
+        body: JSON.stringify({ likes: authStore.like }),
+        headers: {
+          Authorization: cookies.token,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data, cookies.token))
+
+      handleFetch()
+    },
+    [handleFetch, cookies.token, authStore]
+  )
+
   useEffect(() => {
     handleFetch(props.path)
-  }, [handleFetch])
+  }, [handleFetch, props.path, authStore.like])
 
-  useEffect(() => {
-    console.log(authStore.auth)
-    console.log(authStore.role)
-
-    if (authStore.auth && authStore.role === 'superadmin') {
-      console.log(authStore.data.auth)
-    }
-  }, [authStore])
+  // useEffect(() => {
+  //   if (authStore.auth && authStore.role === 'superadmin') {
+  //     console.log(authStore.data.auth)
+  //   }
+  // }, [authStore])
 
   const placesCard =
     places.data &&
     places.data.map((el, index) => {
       return (
-        <Card key={index}>
+        <Card key={index} disabled={disabled === el._id}>
           {authStore.auth && authStore.role === 'superadmin' && (
             <AdminButtons>
               <Button
@@ -83,6 +108,18 @@ const AllPlaces = (props) => {
                 <Button state="constructorAdmin"></Button>
               </Link>
             </AdminButtons>
+          )}
+          {authStore.auth && (
+            <Like
+              liked={authStore.like && authStore.like.indexOf(el._id) !== -1}
+              onClick={() => {
+                handleUpdateLike(el)
+              }}
+            >
+              <LikeDiv
+                liked={authStore.like && authStore.like.indexOf(el._id) !== -1}
+              ></LikeDiv>
+            </Like>
           )}
           <CardLogo
             logo={process.env.REACT_APP_UPLOADS + places.data[index].logo}

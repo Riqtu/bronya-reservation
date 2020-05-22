@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { css } from '@emotion/core'
 
 export const RestoratorWrapper = styled.div`
   background-image: linear-gradient(
@@ -16,6 +17,10 @@ export const RestoratorWrapper = styled.div`
 export const Tables = styled.div`
   position: relative;
   width: 80%;
+  /* left: 0; */
+  margin-left: 0%;
+  margin-top: 1%;
+  z-index: 0;
 `
 export const Input = styled.input`
   position: relative;
@@ -82,3 +87,38 @@ export const Header = styled.header`
   width: 100%;
   height: 140px;
 `
+
+const inputState = css`
+  position: relative;
+  width: 200px;
+  height: 50px;
+  background-color: white;
+  border: none;
+  padding-right: 10px;
+  margin: 0;
+  margin-top: calc(50% - 65px);
+  transition: 0.3s;
+  border-radius: 7px;
+  text-align: center;
+  font-size: 12pt;
+  font-family: 'Montserrat', sans-serif;
+  z-index: 1000;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
+  &:hover {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+  &:focus {
+    outline: none;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+  &:active {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  }
+  @media screen and (max-width: 500px) {
+    margin-left: 15px;
+    top: -15px;
+  }
+`
+export const InputHeader = styled.input((props) => {
+  return inputState
+})

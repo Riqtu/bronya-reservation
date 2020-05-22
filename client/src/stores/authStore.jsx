@@ -8,6 +8,7 @@ export default class AuthStore {
   role = ''
   token = ''
   id = ''
+  like = ''
 
   data = {}
   setAuth(el) {
@@ -40,6 +41,11 @@ export default class AuthStore {
     this.data.id = el
     localStorage.setItem('authStore', this.data)
   }
+  setLike(el) {
+    this.like = el
+    this.data.like = el
+    localStorage.setItem('authStore', this.data)
+  }
 
   clearAll() {
     localStorage.setItem('authStore', null)
@@ -49,6 +55,7 @@ export default class AuthStore {
     this.role = ''
     this.token = ''
     this.id = ''
+    this.like = []
   }
 
   constructor() {
@@ -60,6 +67,7 @@ export default class AuthStore {
       this.setRole(data.role)
       this.setToken(data.token)
       this.setId(data.id)
+      this.setLike(data.like)
     }
   }
 }
@@ -71,6 +79,7 @@ decorate(AuthStore, {
   role: observable,
   token: observable,
   id: observable,
+  like: observable,
 
   setAuth: action,
   setName: action,
@@ -78,6 +87,7 @@ decorate(AuthStore, {
   setRole: action,
   setToken: action,
   setId: action,
+  setLike: action,
 
   clearAll: action,
 })

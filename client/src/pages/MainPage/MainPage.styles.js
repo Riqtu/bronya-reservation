@@ -12,6 +12,8 @@ export const MainPageWrapper = styled.section`
     #30d2be 120%
   );
   overflow-x: hidden;
+  overflow-y: hidden;
+
   background-size: 200% 100%;
   animation: 15s background-animation ease infinite,
     0.5s ${flash} ease-in-out forwards;
@@ -76,6 +78,9 @@ export const All = styled.section`
   background-position-y: 5%;
   background-repeat: no-repeat;
   padding-bottom: calc(200px);
+  @media screen and (max-width: 500px) {
+    background-size: 150%;
+  }
 `
 
 export const WhatBlock = styled.section`
@@ -86,6 +91,12 @@ export const WhatBlock = styled.section`
   height: fit-content;
   width: 600px;
   min-height: 200px;
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    left: 0;
+    margin-bottom: 40px;
+    margin-top: 100px;
+  }
 `
 export const WhatBlockH1 = styled.h1`
   width: 60%;
@@ -95,6 +106,11 @@ export const WhatBlockH1 = styled.h1`
   float: left;
   padding-top: 0;
   margin: 0;
+  @media screen and (max-width: 500px) {
+    float: none;
+    width: 90%;
+    margin-left: 5%;
+  }
 `
 export const WhatBlockP = styled.p`
   width: 60%;
@@ -103,6 +119,11 @@ export const WhatBlockP = styled.p`
   float: left;
   padding-top: 10px;
   margin-top: 0;
+  @media screen and (max-width: 500px) {
+    float: none;
+    width: 90%;
+    margin-left: 5%;
+  }
 `
 
 export const WhatBlockImage = styled.div`
@@ -115,6 +136,10 @@ export const WhatBlockImage = styled.div`
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  @media screen and (max-width: 500px) {
+    left: 30%;
+    right: auto;
+  }
 `
 
 export const Partners = styled.h1`
@@ -149,6 +174,30 @@ export const FooterLayer = styled.img`
 export const Footer = styled.footer`
   position: relative;
   width: 100%;
-  height: 300px;
+  height: 50px;
   background-color: #0b192a;
+  padding: 30px;
+  @media screen and (max-width: 500px) {
+    height: 120px;
+  }
+`
+
+export const FooterImg = styled.img`
+  width: 150px;
+  opacity: 0.7;
+  float: left;
+  margin-right: 20px;
+  margin-top: 5px;
+  @media screen and (max-width: 500px) {
+    float: none;
+    margin-left: calc(50% - 100px);
+  }
+`
+export const FooterText = styled.p`
+  opacity: 0.7;
+  @media screen and (max-width: 500px) {
+    width: 85%;
+    font-size: 10pt;
+    text-align: center;
+  }
 `

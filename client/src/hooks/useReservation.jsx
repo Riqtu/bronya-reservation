@@ -8,5 +8,13 @@ export const useReservation = () => {
   const [table, setTable] = useState('')
   const [tableId, setTableId] = useState('')
 
-  return { id, date, setDate, table, setTable, tableId, setTableId }
+  return {
+    id,
+    date,
+    setDate,
+    table,
+    setTable,
+    tableId,
+    setTableId,
+  }
 }

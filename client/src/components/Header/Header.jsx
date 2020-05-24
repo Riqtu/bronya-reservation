@@ -53,9 +53,10 @@ const Header = (props) => {
             </HeaderLink>
           </AuthWrapper>
         ) : (
-          <AuthWrapperIsTrue>
+          <AuthWrapperIsTrue
+            superadmin={authStore.auth && authStore.role === 'superadmin'}
+          >
             <Link to={'/profile/' + authStore.id}>{authStore.name}</Link>
-
             <HeaderLink
               onClick={() => {
                 setSetting(true)

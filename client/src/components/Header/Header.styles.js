@@ -40,8 +40,18 @@ export const AuthWrapper = styled.div`
   }
   @media screen and (max-width: 500px) {
     text-align: center;
-    left: 50px;
+    /*  left: 50px; */
+    position: absolute;
     top: 50%;
+    width: 80%;
+    left: 10%;
+    text-align: center;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr 1fr;
+    a {
+      top: 0;
+    }
   }
 `
 export const AuthWrapperIsTrue = styled.div`
@@ -64,8 +74,28 @@ export const AuthWrapperIsTrue = styled.div`
     }
   }
   @media screen and (max-width: 500px) {
-    left: 105px;
+    text-align: center;
+    /*  left: 50px; */
+    position: absolute;
     top: 50%;
+    width: 50%;
+    left: 25%;
+    margin-left: 5px;
+    text-align: center;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: ${(props) =>
+      props.superadmin ? '1fr 1fr 1fr 1fr ' : '1fr 1fr 1fr '};
+    a {
+      top: 0;
+    }
+  }
+`
+
+export const Container = styled.div`
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    text-align: center;
   }
 `
 

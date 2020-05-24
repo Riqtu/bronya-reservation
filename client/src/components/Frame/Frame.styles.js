@@ -8,10 +8,38 @@ export const FrameWrapper = styled.div`
   left: 5%;
   top: 20%;
   /* transform: rotateX(60deg) rotateY(0deg) rotateZ(-45deg); */
+  @media screen and (min-width: 1700px) {
+    width: calc(600px * 1.66);
+    height: calc(432px * 1.66);
+  }
+  @media screen and (max-width: 1385px) {
+    width: calc(600px * 1.2);
+    height: calc(432px * 1.2);
+  }
+  @media screen and (max-width: 1245px) {
+    width: calc(600px * 0.9);
+    height: calc(432px * 0.9);
+  }
+  @media screen and (max-width: 920px) {
+    left: calc(50% - ((600px) / 2));
+    width: calc(600px);
+    height: calc(432px);
+    text-align: center;
+    top: 35%;
+    overflow: hidden;
+  }
   @media screen and (max-width: 500px) {
     left: calc(50% - ((600px / 1.6) / 2));
     width: calc(600px / 1.6);
     height: calc(432px / 1.6);
+    text-align: center;
+    top: 45%;
+    overflow: hidden;
+  }
+  @media screen and (max-width: 320px) {
+    left: calc(50% - ((600px / 1.9) / 2));
+    width: calc(600px / 1.9);
+    height: calc(432px / 1.9);
     text-align: center;
     top: 45%;
     overflow: hidden;
@@ -67,7 +95,7 @@ export const TableTime = styled.div`
   min-height: 100px;
   overflow-y: auto;
   background-color: white;
-  left: calc(${(props) => props.x} + 40px);
+  left: calc(${(props) => props.x});
   top: calc(
     ${(props) => props.y} -
       ${(props) => (props.active && props.i === props.index ? '90px' : '60px')}
@@ -81,10 +109,15 @@ export const TableTime = styled.div`
   transition: 0.3s;
   padding: 10px;
 
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 920px) {
     width: 77%;
     left: 9%;
     top: 12px;
+  }
+  @media screen and (max-width: 320px) {
+    width: 73%;
+    left: 11%;
+    top: 0px;
   }
 `
 export const InfoBar = styled.div`
@@ -96,12 +129,19 @@ export const InfoBar = styled.div`
   font-size: 12pt;
   text-align: left;
   color: black;
+  @media screen and (max-width: 320px) {
+    height: 10px;
+    font-size: 10pt;
+  }
 `
 export const Seats = styled.div`
   position: absolute;
   left: auto;
   right: 0;
   top: 0;
+  @media screen and (max-width: 320px) {
+    font-size: 10pt;
+  }
 `
 
 export const Line = styled.div`
@@ -152,9 +192,14 @@ export const Time = styled.button`
       opacity: 1;
     }
   }
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 920px) {
     width: 47px;
     height: 27px;
+  }
+  @media screen and (max-width: 320px) {
+    font-size: 7pt;
+    width: 36px;
+    height: 25px;
   }
 `
 

@@ -38,6 +38,10 @@ export const Form = styled.form`
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   animation: 1s ${(props) => (props.active ? zoomInAnimation : '')} ease;
   text-align: center;
+  @media screen and (max-width: 500px) {
+    width: 70%;
+    margin-left: 10%;
+  }
 `
 export const Img = styled.img`
   width: 20%;
@@ -48,6 +52,9 @@ export const Logo = styled.h1`
   text-transform: uppercase;
   opacity: 0.5;
   color: black;
+  @media screen and (max-width: 500px) {
+    font-size: 1.4rem;
+  }
 `
 export const Change = styled.a`
   position: relative;

@@ -15,6 +15,9 @@ export const AllPlacesWrapper = styled.div`
   display: grid;
   justify-content: center;
   grid-template-columns: repeat(auto-fill, 370px);
+  @media screen and (min-width: 1700px) {
+    grid-template-columns: repeat(auto-fit, 370px);
+  }
   @media screen and (max-width: 500px) {
     display: grid;
     justify-content: center;
@@ -52,6 +55,12 @@ export const Card = styled.div`
   }
   @media screen and (max-width: 500px) {
     margin-left: 0px;
+  }
+  @media screen and (max-width: 320px) {
+    width: 250px;
+    left: 0%;
+    margin-left: 7%;
+    height: 135px;
   }
 `
 export const CardLogo = styled.div`
@@ -112,6 +121,7 @@ export const Like = styled.button`
   width: 15px;
   height: 15px;
   cursor: pointer;
+  background-color: white;
   opacity: ${(props) => (props.liked ? '1' : '0.1')};
   &:focus {
     outline: 0;

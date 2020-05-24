@@ -15,13 +15,40 @@ export const FormReservationWrapper = styled.div`
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
+  @media screen and (min-width: 1700px) {
+    right: 10%;
+    bottom: 15%;
+  }
+  /* @media screen and (max-width: 1052px) {
+    width: 200px;
+    min-width: 200px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+  } */
+  @media screen and (min-width: 700px) {
+    /* position: fixed; */
+    top: 150px;
+    bottom: auto;
+  }
+  @media screen and (min-width: 500px) and (min-width: 650px) {
+    min-height: 530px;
+  }
+  @media screen and (max-width: 920px) {
+    display: ${(props) => (props.mediaPhone ? 'block' : 'none')};
+    z-index: 100;
+    left: calc(50% - 195px);
+    right: auto;
+    margin: 0;
+    top: 200px;
+  }
+
   @media screen and (max-width: 500px) {
-    display: ${(props) => (props.media ? 'block' : 'none')};
+    display: ${(props) => (props.mediaPhone ? 'block' : 'none')};
     z-index: 100;
     left: 10%;
     right: 0;
     top: 40px;
-    bottom: 0;
+    bottom: auto;
     width: 55%;
     min-width: 55%;
     padding-top: 25px;
@@ -101,6 +128,8 @@ const inputState = css`
   @media screen and (max-width: 500px) {
     height: 25px;
     width: calc(100% - 45px);
+  }
+  @media screen and (max-width: 700px) {
     background-color: rgba(0, 0, 0, 0.1);
   }
 `
@@ -145,7 +174,12 @@ export const SmallInput = styled.input`
   &:active {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   }
-  @media screen and (max-width: 500px) {
+  /* @media screen and (max-width: 1052px) {
+    height: 25px;
+    width: 45px;
+  } */
+
+  @media screen and (max-width: 700px) {
     height: 25px;
     width: 47px;
     background-color: rgba(0, 0, 0, 0.1);
@@ -201,6 +235,9 @@ export const UploadText = styled.section`
     padding: 0;
     text-align: center;
     text-transform: uppercase;
+    @media screen and (max-width: 700px) {
+      font-size: 15pt;
+    }
   }
   p {
     margin: 0;
@@ -210,12 +247,18 @@ export const UploadText = styled.section`
     text-align: left;
     line-height: 1.5;
     text-transform: uppercase;
+    @media screen and (max-width: 700px) {
+      font-size: 10pt;
+    }
   }
   h2 {
     font-size: 18pt;
     padding: 0;
     text-align: center;
     text-transform: uppercase;
+    @media screen and (max-width: 700px) {
+      font-size: 13pt;
+    }
   }
   /* background-color: blue; */
 `

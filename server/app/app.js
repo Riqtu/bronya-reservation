@@ -7,11 +7,13 @@ import serve from 'koa-static'
 import bodyParser from 'koa-body'
 
 const io = require('socket.io')(4000)
+const sslify = require('koa-sslify').default
 
 connectorsInit()
 
 const app = new Koa()
 app.use(cors())
+// app.use(sslify())
 io.on('connection', (socket) => {
   socket.on('message', (data) => {
     console.log(data)

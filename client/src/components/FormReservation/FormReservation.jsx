@@ -85,7 +85,7 @@ const FormReservation = (props) => {
   }, [authStore.name, authStore.phone])
   return (
     <FormReservationWrapper
-      media={props.media}
+      mediaPhone={props.media}
       onClick={(e) => {
         e.preventDefault()
         e.stopPropagation()

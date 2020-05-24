@@ -43,8 +43,13 @@ export const ReservationWrapper = styled.div`
   }
   width: 100%;
   height: 100vh;
-  /* min-height: fit-content; */
   color: white;
+  @media screen and (min-width: 700px) {
+    min-height: 780px;
+  }
+  @media screen and (min-width: 500px) {
+    min-height: 670px;
+  }
 `
 export const Logo = styled.img`
   margin: 30px;
@@ -79,6 +84,9 @@ export const BackFrameWrapper = styled.div`
   height: 100vh;
   overflow-y: hidden;
   top: 0;
+  @media screen and (min-width: 700px) {
+    min-height: 780px;
+  }
 `
 export const BackFrame = styled.div`
   position: absolute;
@@ -89,6 +97,25 @@ export const BackFrame = styled.div`
   opacity: 0.3;
   animation: ${flow} 9s infinite ease-in-out;
 
+  @media screen and (min-width: 1700px) {
+    width: calc(600px * 1.66);
+    height: calc(432px * 1.66);
+  }
+  @media screen and (max-width: 1385px) {
+    width: calc(600px * 1.2);
+    height: calc(432px * 1.2);
+  }
+  @media screen and (max-width: 1245px) {
+    width: calc(600px * 0.9);
+    height: calc(432px * 0.9);
+  }
+  @media screen and (max-width: 920px) {
+    left: calc(50% - ((600px) / 2));
+    width: calc(600px);
+    height: calc(432px);
+    text-align: center;
+    top: ${(props) => (props.bottom ? '76%' : '-10%')};
+  }
   @media screen and (max-width: 500px) {
     left: calc(50% - ((600px / 1.5) / 2));
     width: calc(600px / 1.5);
@@ -138,6 +165,7 @@ const inputState = css`
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   }
   @media screen and (max-width: 500px) {
+    width: 200px;
     margin-left: calc(50vw - 110px);
     margin-top: 60px;
     top: -15px;
@@ -150,7 +178,13 @@ export const Input = styled.input((props) => {
 
 export const AdminButtons = styled.div`
   position: absolute;
-  left: 42%;
-  top: 107px;
+  left: 28px;
+  top: 113px;
   z-index: 3;
+  @media screen and (max-width: 500px) {
+    position: absolute;
+    left: 42%;
+    top: 107px;
+    z-index: 3;
+  }
 `

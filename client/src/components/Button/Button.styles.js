@@ -201,6 +201,22 @@ const allPlaces = css`
     background-color: ${darkGreen};
   }
 `
+
+const allReservations = css`
+  /* margin-bottom: 20px; */
+  position: relative;
+  padding: 6px;
+  border-radius: 5px;
+  background-color: ${red};
+  border: none;
+  transition: 0.3s;
+  color: white;
+  font-size: 8pt;
+  cursor: pointer;
+  &:hover {
+    background-color: ${darkGreen};
+  }
+`
 const restoratorAdd = css`
   position: relative;
   text-align: center;
@@ -215,7 +231,7 @@ const restoratorAdd = css`
   font-size: 0.9rem;
   cursor: pointer;
   &:hover {
-    background-color: ${darkGreen};
+    background-color: ${red + 'DD'};
   }
 `
 const restoratorDelete = css`
@@ -270,6 +286,8 @@ export const ButtonWrapper = styled.button((props) => {
       return submit
     case 'allPlaces':
       return allPlaces
+    case 'allReservations':
+      return allReservations
     case 'restoratorAdd':
       return restoratorAdd
     case 'restoratorDelete':

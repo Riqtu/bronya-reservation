@@ -28,17 +28,19 @@ const TimeCard = (props) => {
         console.log(props.tableId)
         handleFetch(data.id)
         socket.emit('message', 'Update place')
-        toast.success(
-          <div>
-            Новое бронирование! <br />
-            Имя: {data.name} <br />
-            Телефон: {data.phone} <br />
-            Дата: {format(new Date(data.date[0]), 'dd.MM.yyyy в HH:mm')}
-          </div>,
-          {
-            position: 'top-right',
-          }
-        )
+
+        !data.deleted &&
+          toast.success(
+            <div>
+              Новое бронирование! <br />
+              Имя: {data.name} <br />
+              Телефон: {data.phone} <br />
+              Дата: {format(new Date(data.date[0]), 'dd.MM.yyyy в HH:mm')}
+            </div>,
+            {
+              position: 'top-right',
+            }
+          )
       }
     })
     socket.emit('message', 'Hello Server')

@@ -13,3 +13,9 @@ export const ProfileWrapper = styled.div`
   min-height: 100vh;
   color: white;
 `
+
+export const Text = styled.p`
+  position: relative;
+  font-size: 20pt;
+  text-align: center;
+`

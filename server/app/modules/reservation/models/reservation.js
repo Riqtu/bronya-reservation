@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
+import { Place } from '../../place/models'
 
 const Reservation = new Schema({
   guestName: {
@@ -16,8 +17,13 @@ const Reservation = new Schema({
   placeId: {
     type: String,
     trim: true,
+    ref: Place,
   },
   tableId: {
+    type: String,
+    trim: true,
+  },
+  tableIndex: {
     type: String,
     trim: true,
   },
@@ -28,6 +34,7 @@ Reservation.statics.createFields = [
   'phone',
   'date',
   'tableId',
+  'tableIndex',
   'placeId',
 ]
 

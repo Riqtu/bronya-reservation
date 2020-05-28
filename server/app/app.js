@@ -5,28 +5,28 @@ import initHandlers from './handlers'
 import modules from './modules'
 import serve from 'koa-static'
 import bodyParser from 'koa-body'
-
-const io = require('socket.io')(4000)
-const sslify = require('koa-sslify').default
-
+import { io } from './server'
 connectorsInit()
 
 const app = new Koa()
 app.use(cors())
-// app.use(sslify())
-io.on('connection', (socket) => {
-  socket.on('message', (data) => {
-    console.log(data)
-    socket.emit('message', 'hi Client')
-  })
-})
+
+// const server = require('http').createServer(app.callback())
+// const io = require('socket.io')(server)
+
+// io.on('connection', (socket) => {
+//   socket.on('message', (data) => {
+//     console.log(data)
+//     socket.emit('message', 'hi Client')
+//   })
+// })
 app.use(async (ctx, next) => {
   ctx.req.io = io
   await next()
 })
 app.use(
   bodyParser({
-    formidable: { uploadDir: './app/uploads', keepExtensions: true }, // keep file extension on upload },
+    formidable: { uploadDir: './app/uploads', keepExtensions: true },
     multipart: true,
     urlencoded: true,
   }),

@@ -1,4 +1,5 @@
 /*APPEND COMPONENT IMPORT HERE*/
+import AllReservations from './AllReservations'
 import ProfileSetting from './ProfileSetting'
 import Header from './Header'
 import Authorization from './Authorization'
@@ -13,6 +14,7 @@ import Button from './Button'
 
 export {
   /*APPEND COMPONENT EXPORT HERE*/
+  AllReservations,
   ProfileSetting,
   Header,
   Authorization,

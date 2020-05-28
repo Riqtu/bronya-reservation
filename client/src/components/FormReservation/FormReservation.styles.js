@@ -133,6 +133,10 @@ const inputState = css`
     background-color: rgba(0, 0, 0, 0.1);
   }
 `
+const notChange = css`
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.15);
+  cursor: default;
+`
 const notValid = css`
   background-color: #ffaab3;
   opacity: 0.5;
@@ -143,6 +147,10 @@ export const PhoneInput = styled.input((props) => {
 
 export const NameInput = styled.input((props) => {
   return props.isValidName ? inputState : [inputState, notValid]
+})
+
+export const InputNotChange = styled.input((props) => {
+  return [inputState, notChange]
 })
 
 export const Input = styled.input((props) => {
@@ -163,9 +171,11 @@ export const SmallInput = styled.input`
   font-size: 12pt;
   float: left;
   margin-left: ${(props) => (props.second ? '0px' : '40px')};
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
+  cursor: default;
+
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.15);
   &:hover {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.15);
   }
   &:focus {
     outline: none;

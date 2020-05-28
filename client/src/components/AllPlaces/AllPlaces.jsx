@@ -10,6 +10,7 @@ import {
   AdminButtons,
   Like,
   LikeDiv,
+  NotFound,
 } from './AllPlaces.styles'
 import { Link } from 'react-router-dom'
 import { Button } from '../../components'
@@ -92,51 +93,56 @@ const AllPlaces = (props) => {
   // }, [authStore])
 
   const placesCard =
-    places.data &&
-    places.data.map((el, index) => {
-      return (
-        <Card key={index} disabled={disabled === el._id}>
-          {authStore.auth && authStore.role === 'superadmin' && (
-            <AdminButtons>
-              <Button
-                state="deleteAdmin"
-                onClick={() => {
-                  handleDelete(el._id && el._id)
-                }}
-              ></Button>
-              <Link to={'/constructor/' + el._id}>
-                <Button state="constructorAdmin"></Button>
-              </Link>
-            </AdminButtons>
-          )}
-          {authStore.auth && (
-            <Like
-              liked={authStore.like && authStore.like.indexOf(el._id) !== -1}
-              onClick={() => {
-                handleUpdateLike(el)
-              }}
-            >
-              <LikeDiv
+    places.data && places.data.length !== 0 ? (
+      places.data.map((el, index) => {
+        return (
+          <Card key={index} disabled={disabled === el._id}>
+            {authStore.auth && authStore.role === 'superadmin' && (
+              <AdminButtons>
+                <Button
+                  state="deleteAdmin"
+                  onClick={() => {
+                    handleDelete(el._id && el._id)
+                  }}
+                ></Button>
+                <Link to={'/constructor/' + el._id}>
+                  <Button state="constructorAdmin"></Button>
+                </Link>
+              </AdminButtons>
+            )}
+            {authStore.auth && (
+              <Like
                 liked={authStore.like && authStore.like.indexOf(el._id) !== -1}
-              ></LikeDiv>
-            </Like>
-          )}
-          <CardLogo
-            logo={process.env.REACT_APP_UPLOADS + places.data[index].logo}
-          ></CardLogo>
-          <CardText>
-            <h1>{places.data[index].name}</h1>
-            <Description>{places.data[index].description}</Description>
-            <Address>{places.data[index].address}</Address>
-            <ButtonBar>
-              <Link to={'/reservation/' + places.data[index]._id} key={index}>
-                <Button text="забронировать" state="allPlaces" />
-              </Link>
-            </ButtonBar>
-          </CardText>
-        </Card>
-      )
-    })
+                onClick={() => {
+                  handleUpdateLike(el)
+                }}
+              >
+                <LikeDiv
+                  liked={
+                    authStore.like && authStore.like.indexOf(el._id) !== -1
+                  }
+                ></LikeDiv>
+              </Like>
+            )}
+            <CardLogo
+              logo={process.env.REACT_APP_UPLOADS + places.data[index].logo}
+            ></CardLogo>
+            <CardText>
+              <h1>{places.data[index].name}</h1>
+              <Description>{places.data[index].description}</Description>
+              <Address>{places.data[index].address}</Address>
+              <ButtonBar>
+                <Link to={'/reservation/' + places.data[index]._id} key={index}>
+                  <Button text="забронировать" state="allPlaces" />
+                </Link>
+              </ButtonBar>
+            </CardText>
+          </Card>
+        )
+      })
+    ) : (
+      <NotFound>Вы еще ничего не лайкнули =(</NotFound>
+    )
   return <AllPlacesWrapper>{placesCard}</AllPlacesWrapper>
 }
 

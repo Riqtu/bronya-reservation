@@ -11,6 +11,7 @@ import {
   UploadLogo,
   UploadText,
   NameInput,
+  InputNotChange,
 } from './FormReservation.styles'
 import InputMask from 'react-input-mask'
 import { format, addMinutes } from 'date-fns'
@@ -44,6 +45,7 @@ const FormReservation = (props) => {
       phone: phone,
       date: [props.date, addMinutes(new Date(props.date), 30)],
       tableId: props.tableId,
+      tableIndex: props.table,
       placeId: props.id,
     }
     console.log(data.phone.replace(/[^0-9]/gim, '').replace(/^7/, ''))
@@ -128,13 +130,13 @@ const FormReservation = (props) => {
       </InputLine>
       <InputLine>
         <Label back={calendar} />
-        <Input
+        <InputNotChange
           type="text"
           placeholder="Дата"
           value={format(new Date(props.date), 'dd.MM.yyyy в HH:mm')}
           onChange={(e) => props.setDate(e.target.value)}
           readOnly
-        ></Input>
+        ></InputNotChange>
       </InputLine>
       <InputLine>
         <Label back={guests} />

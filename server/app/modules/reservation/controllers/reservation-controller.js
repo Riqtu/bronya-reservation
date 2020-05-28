@@ -2,6 +2,7 @@ import pick from 'lodash/pick'
 import { Reservation } from '../models'
 import { ReservationService } from '../services'
 import { addHours } from 'date-fns'
+import { Place } from '../../place/models'
 
 export default {
   async create(ctx) {
@@ -60,7 +61,11 @@ export default {
     }
 
     await reservation.remove()
-    ctx.req.io.emit('message', { action: 'update', id: reservation.tableId })
+    ctx.req.io.emit('message', {
+      action: 'update',
+      id: reservation.tableId,
+      deleted: true,
+    })
 
     ctx.body = { data: { id: _id } }
   },
@@ -103,7 +108,7 @@ export default {
       $and: [{ placeId: placeId }, { date: date1 }],
     })
 
-    let arr = []
+    const arr = []
     reservation.map((el, index) => {
       arr.push(el.tableId)
     })
@@ -129,5 +134,28 @@ export default {
       ],
     }).sort([['date']])
     ctx.body = { data: reservation }
+  },
+  async getByPhone(ctx) {
+    const {
+      params: { phone: phone },
+    } = ctx
+
+    const date = new Date()
+    date.setDate(date.getDate() - 1)
+
+    const reservation = await Reservation.find({
+      $and: [
+        { phone: phone },
+        {
+          date: {
+            $gt: date,
+          },
+        },
+      ],
+    })
+      .sort([['date']])
+      .populate('placeId')
+
+    ctx.body = { res: reservation }
   },
 }

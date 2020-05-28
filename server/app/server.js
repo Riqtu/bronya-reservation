@@ -16,9 +16,21 @@ const path = require('path')
 //     if (err) console.log(err)
 //     console.log(`Server started on port: ${PORT}`)
 //   })
-const server = app.listen(PORT, (err) => {
+
+const server = require('http').createServer(app.callback())
+const io = require('socket.io')(server)
+
+io.on('connection', (socket) => {
+  socket.on('message', (data) => {
+    console.log(data)
+    socket.emit('message', 'hi Client')
+  })
+})
+
+server.listen(PORT, (err) => {
   if (err) console.log(err)
   console.log(`Server started on port: ${PORT}`)
 })
 
+export { io }
 export default server

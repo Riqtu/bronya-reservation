@@ -140,7 +140,13 @@ const FormReservation = (props) => {
       </InputLine>
       <InputLine>
         <Label back={guests} />
-        <SmallInput type="text" placeholder="" second></SmallInput>
+        <SmallInput
+          type="text"
+          placeholder=""
+          value={props.seats}
+          readOnly
+          second
+        ></SmallInput>
         <Label back={table} small />
         <SmallInput
           type="text"

@@ -77,6 +77,9 @@ const form = css`
   @media screen and (max-width: 500px) {
     margin: 20px 0;
   }
+  @media screen and (max-width: 320px) {
+    font-size: 8pt;
+  }
 `
 const exit = css`
   background-color: ${red};

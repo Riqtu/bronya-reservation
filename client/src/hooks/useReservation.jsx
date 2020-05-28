@@ -7,6 +7,7 @@ export const useReservation = () => {
   const [date, setDate] = useState(format(new Date(), "yyyy-MM-dd'T'hh:mm"))
   const [table, setTable] = useState('')
   const [tableId, setTableId] = useState('')
+  const [seats, setSeats] = useState('')
 
   return {
     id,
@@ -16,5 +17,7 @@ export const useReservation = () => {
     setTable,
     tableId,
     setTableId,
+    seats,
+    setSeats,
   }
 }

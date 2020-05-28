@@ -41,7 +41,7 @@ export const FrameWrapper = styled.div`
     width: calc(600px / 1.9);
     height: calc(432px / 1.9);
     text-align: center;
-    top: 45%;
+    top: 52%;
     overflow: hidden;
   }
   z-index: 0;

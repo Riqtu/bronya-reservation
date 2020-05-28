@@ -84,7 +84,7 @@ const Frame = (props) => {
     handleFetchTables()
   }, [handleFetchTables])
 
-  const generate = (start, end, tableIndex, tableId) => {
+  const generate = (start, end, tableIndex, tableId, seats) => {
     let arr = []
     for (let i = start; i < end; i++) {
       const thisDate = new Date(
@@ -154,6 +154,7 @@ const Frame = (props) => {
               props.setDate(format(new Date(el), "yyyy-MM-dd'T'HH:mm"))
               props.setTable('№' + tableIndex)
               props.setTableId(tableId)
+              props.setSeats(seats)
               props.setMedia(true)
               e.preventDefault()
               e.stopPropagation()
@@ -202,7 +203,8 @@ const Frame = (props) => {
                 props.places.start,
                 props.places.end,
                 index,
-                props.places.table[index]._id
+                props.places.table[index]._id,
+                props.places.table[index].seats
               )
             ) : (
               <Loader wall={loader} />

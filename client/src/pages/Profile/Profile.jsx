@@ -1,13 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import {
-  ProfileWrapper,
-  ReservationsWrapper,
-  Card,
-  CardLogo,
-  CardText,
-  Description,
-  Text,
-} from './Profile.styles'
+import React from 'react'
+import { ProfileWrapper, Text } from './Profile.styles'
 import { Header, AllPlaces, AllReservations } from '../../components'
 import { useStores } from './../../hooks/useStores'
 

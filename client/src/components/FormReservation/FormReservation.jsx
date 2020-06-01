@@ -4,7 +4,6 @@ import {
   Logo,
   InputLine,
   Label,
-  Input,
   SmallInput,
   PhoneInput,
   Upload,

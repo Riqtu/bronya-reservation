@@ -16,8 +16,8 @@ import { format } from 'date-fns'
 const AllReservations = (props) => {
   const { authStore } = useStores()
   const [cookies] = useCookies(['token'])
-  const [hasError, setErrors] = useState(false)
-  const [isFetching, setIsFetching] = useState(true)
+  const [, setErrors] = useState(false)
+  const [, setIsFetching] = useState(true)
   const [places, setPlaces] = useState({})
   const [disabled, setDisabled] = useState()
 
@@ -30,7 +30,7 @@ const AllReservations = (props) => {
         setIsFetching(false)
       })
       .catch((err) => setErrors(err))
-  }, [])
+  }, [authStore.phone])
 
   useEffect(() => {
     handleFetch()

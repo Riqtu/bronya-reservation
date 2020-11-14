@@ -8,15 +8,15 @@ import {
 import table from './../../assets/table.svg'
 const FrameConstructor = (props) => {
   function showCoords(evt) {
-    var rect = document.getElementById('test').getBoundingClientRect()
-    var x = rect.right - evt.clientX
-    var y = rect.bottom - evt.clientY
-    var pixelsX = x + 30
-    var screenWidthX = rect.width
-    var percentageX = ((screenWidthX - pixelsX) / screenWidthX) * 100
-    var pixelsY = y + 30
-    var screenWidthY = rect.height
-    var percentageY = ((screenWidthY - pixelsY) / screenWidthY) * 100
+    let rect = document.getElementById('test').getBoundingClientRect()
+    let x = rect.right - evt.clientX
+    let y = rect.bottom - evt.clientY
+    let pixelsX = x + 30
+    let screenWidthX = rect.width
+    let percentageX = ((screenWidthX - pixelsX) / screenWidthX) * 100
+    let pixelsY = y + 30
+    let screenWidthY = rect.height
+    let percentageY = ((screenWidthY - pixelsY) / screenWidthY) * 100
     if (
       percentageY > 0 &&
       percentageY < 100 &&

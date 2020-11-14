@@ -78,6 +78,10 @@ const Registration = (props) => {
 
         if (!result.ok) {
           toast.error(data.message)
+          await fetch(process.env.REACT_APP_SENDEMAIL + credentials.email, {
+            method: 'GET',
+          })
+          console.log(process.env.REACT_APP_SENDEMAIL + credentials.email)
         } else {
           toast.success('Успешная регистрация!')
           setCookie('token', data.token)

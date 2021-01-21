@@ -41,6 +41,6 @@
     "mongoose-beautiful-unique-validation": "^7.1.1",
     "mongoose-unique-validator": "^2.0.3",
     "nodemailer": "^6.4.8",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.4.0"
   }
 }
